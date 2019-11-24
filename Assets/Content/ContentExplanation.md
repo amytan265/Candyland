@@ -1,4 +1,5 @@
 # Placeholder
 
 - Rules
-- Dictionary / key
+- Dictionary / Key
+- Create 'Special Candy Cards'
