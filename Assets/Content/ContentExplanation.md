@@ -1,5 +1,6 @@
 # Content
 
 - Rules
-- Dictionary / Key
+- About 
+- Key
   -  Create 'Special Candy Cards'
