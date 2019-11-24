@@ -1,6 +1,6 @@
 # Placeholder / Explanation of Assets
-- Board Image
-- "Special" Cards
-- User Icon/Piece (6)
-- "CANDYLAND" Logo/Graphic
-- Draw, Rules Button
+- Board Image (RB)
+- "Special" Cards (AT)
+- User Icon/Piece (6 (MM)
+- "CANDYLAND" Logo/Graphic (RB)
+- Draw, Rules Button (MM)
