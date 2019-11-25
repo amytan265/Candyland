@@ -5,5 +5,5 @@ For our final group project in *Computational Problem-Solving in the information
 We hope you enjoy!
 
 <strong>Regina Bass</strong>  &nbsp; - &nbsp;2nd Year Web and Mobile Computing <br />
-<strong>Amy Tan</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    -  &nbsp;2nd Year Human Centered Computing <br />
+<strong>Amy Tan</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    -  &nbsp;2nd Year Web and Mobile Computing <br />
 <strong>Miki Mian</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   -  &nbsp;3rd Year Human Centered Computing
