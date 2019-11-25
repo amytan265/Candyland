@@ -1,4 +1,4 @@
-# Placeholder / Explanation of Assets
+# Assets
 - Board Image (RB)
 - "Special" Cards (AT)
 - User Icon/Piece - 6(MM)
