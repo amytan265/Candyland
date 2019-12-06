@@ -29,10 +29,20 @@ public class Board extends JFrame {
             JMenu jmAbout = new JMenu("About");
             JMenuItem jmiRules = new JMenuItem("Rules");
             JMenuItem jmiKey = new JMenuItem("Key");
+            JMenuItem jmiDisclaimer = new JMenuItem("Disclaimer");
             
             jmFile.add(jmiExit);
             jmAbout.add(jmiRules);
             jmAbout.add(jmiKey);
+            jmAbout.add(jmiDisclaimer);
+            
+            //Action Listeners for Menu Items
+            MyAdapter ma = new MyAdapter();
+            jmiExit.addActionListener(ma);
+            jmiRules.addActionListener(ma);
+            jmiKey.addActionListener(ma);
+            jmiDisclaimer.addActionListener(ma);
+            jmiExit.addActionListener(ma);
             
             menu.add(jmFile);
             menu.add(jmAbout);
@@ -105,6 +115,33 @@ public class Board extends JFrame {
             this.add(jpButtons, BorderLayout.EAST); 
         }
     }
+    
+    
+    class MyAdapter implements ActionListener {     // You can only have one public class in a file so you don't write public 
+
+         
+         public void actionPerformed(ActionEvent ae){
+            String choice = ae.getActionCommand();
+            
+            if( choice.equals("About") ){
+             System.out.println("About was clicked");
+            }
+            else if(choice.equals("Rules")){
+               System.out.println("Rules was clicked");
+            }
+            else if(choice.equals("Key")){
+               System.out.println("Key was clicked");
+            }
+            else if(choice.equals("Disclaimer")){
+               System.out.println("Disclaimer was clicked");
+            }
+            else if(choice.equals("Exit")){
+               System.exit(0);
+            }
+             
+            
+         }
+     } // end class MyAdapter
     
 }
 
