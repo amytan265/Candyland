@@ -138,31 +138,63 @@ public class Board extends JFrame {
             String choice = ae.getActionCommand();
             
             if( choice.equals("About") ){
-               JFrame about = new JFrame("About");
-               about.setSize(400, 400);
-               about.setLocationRelativeTo(null);
-               StringBuilder htmlBuilder  = new StringBuilder();
-               htmlBuilder.append("<html>");
-               htmlBuilder.append("<h1>About</h1><br />");
-               htmlBuilder.append("<p>For our final group project in <i>Computational Problem-Solving in the information Domain II</i> ISTE-121, our group created a digital version of the popular kid's board game Candyland to which we added a small twist. ");
-               htmlBuilder.append("This program was written in java and assets were made entirely by the group members.");
-               htmlBuilder.append("To maximize interactiveness, we decided to let the users themselves have control over their pieces, and added a chat functionality on the side so that players can communicate with their opponents. ");
-               htmlBuilder.append("For your convenience, the rules/directions for this game were added to the Menu bar along with this about page, and there is a key/guide in the interface underneath the 'Draw' button that tells you what our special cards mean.</p>");
-               htmlBuilder.append("<br /><p>We hope you enjoy!</p><hr /><br /> <strong>Regina Bass</strong>  &nbsp; - &nbsp;2nd Year Web and Mobile Computing <br /> <strong>Amy Tan</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -  &nbsp;2nd Year Web and Mobile Computing <br /> <strong>Miki Mian</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   -  &nbsp;3rd Year Human Centered Computing</html>");
-               String html = htmlBuilder.toString();
-               JTextArea textareaAbout = new JTextArea(html);
-               textareaAbout.setEnabled(false);
-               about.add(textareaAbout);
-               about.setVisible(true); 
+//             JFrame about = new JFrame("About");
+//             about.setSize(400, 400);
+//             about.setLocationRelativeTo(null);
+               try {
+                  File htmlFile = new File("Assets/about.html");
+                  Desktop.getDesktop().open(htmlFile); 
+               }
+               catch(Exception e) {
+                  String msg = "Error occured opening File";
+						String title = "Error";
+						JOptionPane.showMessageDialog(null, msg, title,
+							   JOptionPane.ERROR_MESSAGE);
+               }
+
+//                JTextArea textareaAbout = new JTextArea(htmlFile);
+//                textareaAbout.setEnabled(false);
+//                about.add(textareaAbout);
+//             about.setVisible(true); 
             }
             else if(choice.equals("Rules")){
-               System.out.println("Rules was clicked");
+               try {
+                  File htmlFile = new File("Assets/rules.html");
+                  Desktop.getDesktop().open(htmlFile); 
+               }
+               catch(Exception e) {
+                  String msg = "Error occured opening File";
+						String title = "Error";
+						JOptionPane.showMessageDialog(null, msg, title,
+							   JOptionPane.ERROR_MESSAGE);
+               }
+
             }
             else if(choice.equals("Key")){
-               System.out.println("Key was clicked");
+               try {
+                  File htmlFile = new File("Assets/key.html");
+                  Desktop.getDesktop().open(htmlFile); 
+               }
+               catch(Exception e) {
+                  String msg = "Error occured opening File";
+						String title = "Error";
+						JOptionPane.showMessageDialog(null, msg, title,
+							   JOptionPane.ERROR_MESSAGE);
+               }
+
             }
             else if(choice.equals("Disclaimer")){
-               System.out.println("Disclaimer was clicked");
+               try {
+                  File htmlFile = new File("Assets/disclaimer.html");
+                  Desktop.getDesktop().open(htmlFile); 
+               }
+               catch(Exception e) {
+                  String msg = "Error occured opening File";
+						String title = "Error";
+						JOptionPane.showMessageDialog(null, msg, title,
+							   JOptionPane.ERROR_MESSAGE);
+               }
+
             }
             else if(choice.equals("Draw")){
                System.out.println("Draw was clicked");
