@@ -27,25 +27,25 @@ public class Board extends JFrame {
             JMenuItem jmiExit = new JMenuItem("Exit");
             
             JMenu jmAbout = new JMenu("About");
+            JMenuItem jmKey = new JMenuItem("Key");
             JMenuItem jmiRules = new JMenuItem("Rules");
-            JMenuItem jmiKey = new JMenuItem("Key");
             JMenuItem jmiDisclaimer = new JMenuItem("Disclaimer");
             
             jmFile.add(jmiExit);
             jmAbout.add(jmiRules);
-            jmAbout.add(jmiKey);
             jmAbout.add(jmiDisclaimer);
             
             //Action Listeners for Menu Items
             MyAdapter ma = new MyAdapter();
+            jmKey.addActionListener(ma);
             jmiExit.addActionListener(ma);
             jmiRules.addActionListener(ma);
-            jmiKey.addActionListener(ma);
             jmiDisclaimer.addActionListener(ma);
             jmiExit.addActionListener(ma);
             
             menu.add(jmFile);
             menu.add(jmAbout);
+            menu.add(jmKey);
         this.setJMenuBar(menu);
          
         this.add(new CLBoard(), BorderLayout.WEST);
@@ -95,6 +95,8 @@ public class Board extends JFrame {
             jpBottom.setLayout(new FlowLayout());
             jtfMsg = new JTextField(20);
             jbSend = new JButton("Send");
+            MyAdapter ma = new MyAdapter();
+            jbSend.addActionListener(ma);
             jpBottom.add(jtfMsg);
             jpBottom.add(jbSend);
         
@@ -116,9 +118,8 @@ public class Board extends JFrame {
             JPanel jpButtons = new JPanel();
             jpButtons.setLayout(new GridLayout(0, 1));
             jpButtons.add(jbDraw = new JButton("Draw"));
-            //jbDraw.addActionListener(ma);
-            jpButtons.add(jbKey = new JButton("Key"));
-            //jbKey.addActionListener(ma);
+            MyAdapter ma = new MyAdapter();
+            jbDraw.addActionListener(ma);
             
             this.add(jpCard, BorderLayout.CENTER);
             this.add(jpButtons, BorderLayout.EAST); 
@@ -143,6 +144,12 @@ public class Board extends JFrame {
             }
             else if(choice.equals("Disclaimer")){
                System.out.println("Disclaimer was clicked");
+            }
+            else if(choice.equals("Draw")){
+               System.out.println("Draw was clicked");
+            }
+            else if(choice.equals("Send")){
+               System.out.println("Send was clicked");
             }
             else if(choice.equals("Exit")){
                System.exit(0);
