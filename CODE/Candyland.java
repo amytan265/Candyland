@@ -16,6 +16,9 @@ import java.util.*;
 public class Candyland {
     
     public static void main(String[] args) {
+        String username = new String();
+        username = JOptionPane.showInputDialog(null, "Enter Username:",
+                                               "Enter Username", JOptionPane.QUESTION_MESSAGE);
         
         new Candyland();
     }
