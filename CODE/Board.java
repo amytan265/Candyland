@@ -64,6 +64,7 @@ public class Board extends JFrame {
         
         this.setResizable(true);
         pack();
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
     }
     
