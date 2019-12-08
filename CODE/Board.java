@@ -3,6 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 import java.util.*;
+import java.net.*;
 import javax.swing.ImageIcon;
 
 /**
@@ -16,7 +17,11 @@ import javax.swing.ImageIcon;
   */
 public class Board extends JFrame {
 
-    public Board() {
+    private User currentPlayer;
+
+    public Board(User currentPlayer) {
+    
+        this.currentPlayer = currentPlayer;
     
         this.setSize(1050, 1000);
         this.setLocationRelativeTo(null);
@@ -84,8 +89,26 @@ public class Board extends JFrame {
         private JTextArea jtaMain;
         private JTextField jtfMsg;
         private JButton jbSend;
+    
+        BufferedReader in = null;
+        PrintWriter out = null;
+        Socket s;
         
         public CLChat() {
+        
+            try {
+        
+                s = new Socket("localhost", 16789);
+                in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                out = new PrintWriter(new OutputStreamWriter(s.getOutputStream()));
+            
+            } catch (IOException ioe) {} 
+            
+            this.ChatGUI();
+            new ReadMessages().start();
+         }
+         
+         public void ChatGUI() {
 
             this.setLayout(new BorderLayout());
             JPanel jpMain = new JPanel();
@@ -107,6 +130,35 @@ public class Board extends JFrame {
             jpMain.add(jtaMain);
             this.add(jpMain, BorderLayout.CENTER);
             this.add(jpBottom, BorderLayout.SOUTH);
+            
+         
+         jbSend.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent ae) {
+            out.println(currentPlayer.getUsername() + ": " + jtfMsg.getText());
+            System.out.println(currentPlayer.getUsername() + ": " + jtfMsg.getText());
+            out.flush();
+            jtfMsg.setText("");
+            
+         }
+       });
+       
+       }
+       
+       class ReadMessages extends Thread {
+    
+          String line;
+        
+          // run method
+          public void run() {
+            try {
+                while(true) {
+                    
+                    // reads incoming messages, appends to JTextArea
+                    line = in.readLine();
+                    jtaMain.append(line + "\n");     
+                }
+            } catch (IOException ioe) {}
+          }
         }
     }
     
