@@ -49,6 +49,7 @@ public class Board extends JFrame {
         this.setJMenuBar(menu);
          
         this.add(new CLBoard(), BorderLayout.WEST);
+        this.add(new CLChat(), BorderLayout.EAST);
         
         /**
         JPanel jpEast = new JPanel();
@@ -57,8 +58,9 @@ public class Board extends JFrame {
         
         this.add(jpEast, BorderLayout.EAST); 
         */
-       
-        this.setResizable(false);
+        
+        this.setResizable(true);
+        pack();
         this.setVisible(true);
     }
     
@@ -81,17 +83,22 @@ public class Board extends JFrame {
         
         public CLChat() {
 
+            this.setLayout(new BorderLayout());
             JPanel jpMain = new JPanel();
+            jpMain.setLayout(new BorderLayout());
             jtaMain = new JTextArea(10, 30);
             jtaMain.setEditable(false);
-            JScrollPane jspMain = new JScrollPane(jtaMain);
-            jpMain.add(jspMain);
+            //JScrollPane jspMain = new JScrollPane(jtaMain);
+            //jpMain.add(jspMain);
         
             JPanel jpBottom = new JPanel();
             jpBottom.setLayout(new FlowLayout());
-            jpBottom.add(jtfMsg = new JTextField(20));
-            jpBottom.add(jbSend = new JButton("Send"));
+            jtfMsg = new JTextField(20);
+            jbSend = new JButton("Send");
+            jpBottom.add(jtfMsg);
+            jpBottom.add(jbSend);
         
+            jpMain.add(jtaMain);
             this.add(jpMain, BorderLayout.CENTER);
             this.add(jpBottom, BorderLayout.SOUTH);
         }
@@ -109,7 +116,9 @@ public class Board extends JFrame {
             JPanel jpButtons = new JPanel();
             jpButtons.setLayout(new GridLayout(0, 1));
             jpButtons.add(jbDraw = new JButton("Draw"));
+            //jbDraw.addActionListener(ma);
             jpButtons.add(jbKey = new JButton("Key"));
+            //jbKey.addActionListener(ma);
             
             this.add(jpCard, BorderLayout.CENTER);
             this.add(jpButtons, BorderLayout.EAST); 
