@@ -13,6 +13,7 @@ public class User {
     private int id;
     private String username;
     private String userPiece;
+    private int userScore;
 
     public User(String username) {
         
@@ -22,5 +23,10 @@ public class User {
     public String getUsername() {
     
         return this.username;
+    }
+    
+    public void setScore(int userScore) {
+    
+        this.userScore = userScore;
     }
 }

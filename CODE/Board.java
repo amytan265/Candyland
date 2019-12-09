@@ -191,9 +191,9 @@ public class Board extends JFrame {
             JRadioButton jrb2 = new JRadioButton("Regina");
             JRadioButton jrb3 = new JRadioButton("Miki");
             
-            jrb1.setFont(new Font("Arial", Font.BOLD, 24));
-            jrb2.setFont(new Font("Arial", Font.BOLD, 24));
-            jrb3.setFont(new Font("Arial", Font.BOLD, 24));
+            jrb1.setFont(new Font("Arial", Font.BOLD, 12));
+            jrb2.setFont(new Font("Arial", Font.BOLD, 12));
+            jrb3.setFont(new Font("Arial", Font.BOLD, 12));
             
             jrb1.setSelected(true);
             jrb2.setSelected(true);
@@ -479,6 +479,8 @@ public class Board extends JFrame {
                
                }
                */
+               
+               currentPlayer.setScore(score);
                System.out.println(score);
                
             }
