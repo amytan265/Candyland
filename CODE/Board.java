@@ -303,83 +303,89 @@ public class Board extends JFrame {
                String currColor = card.getCurrentColor();      // calls method which gets current color
                String drawnCard = card.getNextColor();
                
-               System.out.println(currColor);
-               System.out.println(drawnCard);
+               // System.out.println(currColor);
+               // System.out.println(drawnCard);
                
-               if (currColor.equals("purple")) {
-               
-                  if (drawnCard.equals("purple")) {
-                     score += 5;
-                  } else if (drawnCard.equals("pink")) {
-                     score += 1;
-                  } else if (drawnCard.equals("blue")) {
-                     score += 2;
-                  } else if (drawnCard.equals("yellow")) {
-                     score += 3;
-                  } else if (drawnCard.equals("orange")) {
-                     score += 4;
+               if(score < 50){
+                  if (currColor.equals("purple")) {
+                  
+                     if (drawnCard.equals("purple")) {
+                        score += 5;
+                     } else if (drawnCard.equals("pink")) {
+                        score += 1;
+                     } else if (drawnCard.equals("blue")) {
+                        score += 2;
+                     } else if (drawnCard.equals("yellow")) {
+                        score += 3;
+                     } else if (drawnCard.equals("orange")) {
+                        score += 4;
+                     } 
                   } 
-               } 
-               
-               if (currColor.equals("pink")) {
-               
-                  if (drawnCard.equals("purple")) {
-                     score += 4;
-                  } else if (drawnCard.equals("pink")) {
-                     score += 5;
-                  } else if (drawnCard.equals("blue")) {
-                     score += 1;
-                  } else if (drawnCard.equals("yellow")) {
-                     score += 2;
-                  } else if (drawnCard.equals("orange")) {
-                     score += 3;
+                  
+                  if (currColor.equals("pink")) {
+                  
+                     if (drawnCard.equals("purple")) {
+                        score += 4;
+                     } else if (drawnCard.equals("pink")) {
+                        score += 5;
+                     } else if (drawnCard.equals("blue")) {
+                        score += 1;
+                     } else if (drawnCard.equals("yellow")) {
+                        score += 2;
+                     } else if (drawnCard.equals("orange")) {
+                        score += 3;
+                     } 
                   } 
-               } 
-               
-                if (currColor.equals("blue")) {
-               
-                  if (drawnCard.equals("purple")) {
-                     score += 3;
-                  } else if (drawnCard.equals("pink")) {
-                     score += 4;
-                  } else if (drawnCard.equals("blue")) {
-                     score += 5;
-                  } else if (drawnCard.equals("yellow")) {
-                     score += 1;
-                  } else if (drawnCard.equals("orange")) {
-                     score += 2;
+                  
+                   if (currColor.equals("blue")) {
+                  
+                     if (drawnCard.equals("purple")) {
+                        score += 3;
+                     } else if (drawnCard.equals("pink")) {
+                        score += 4;
+                     } else if (drawnCard.equals("blue")) {
+                        score += 5;
+                     } else if (drawnCard.equals("yellow")) {
+                        score += 1;
+                     } else if (drawnCard.equals("orange")) {
+                        score += 2;
+                     } 
                   } 
-               } 
-               
-               if (currColor.equals("yellow")) {
-               
-                  if (drawnCard.equals("purple")) {
-                     score += 2;
-                  } else if (drawnCard.equals("pink")) {
-                     score += 3;
-                  } else if (drawnCard.equals("blue")) {
-                     score += 4;
-                  } else if (drawnCard.equals("yellow")) {
-                     score += 5;
-                  } else if (drawnCard.equals("orange")) {
-                     score += 1;
+                  
+                  if (currColor.equals("yellow")) {
+                  
+                     if (drawnCard.equals("purple")) {
+                        score += 2;
+                     } else if (drawnCard.equals("pink")) {
+                        score += 3;
+                     } else if (drawnCard.equals("blue")) {
+                        score += 4;
+                     } else if (drawnCard.equals("yellow")) {
+                        score += 5;
+                     } else if (drawnCard.equals("orange")) {
+                        score += 1;
+                     } 
                   } 
-               } 
-               
-               if (currColor.equals("orange")) {
-               
-                  if (drawnCard.equals("purple")) {
-                     score += 1;
-                  } else if (drawnCard.equals("pink")) {
-                     score += 2;
-                  } else if (drawnCard.equals("blue")) {
-                     score += 3;
-                  } else if (drawnCard.equals("yellow")) {
-                     score += 4;
-                  } else if (drawnCard.equals("orange")) {
-                     score += 5;
+                  
+                  if (currColor.equals("orange")) {
+                  
+                     if (drawnCard.equals("purple")) {
+                        score += 1;
+                     } else if (drawnCard.equals("pink")) {
+                        score += 2;
+                     } else if (drawnCard.equals("blue")) {
+                        score += 3;
+                     } else if (drawnCard.equals("yellow")) {
+                        score += 4;
+                     } else if (drawnCard.equals("orange")) {
+                        score += 5;
+                     } 
                   } 
-               } 
+              }
+              else {
+               System.out.println(currentPlayer.getUsername() + " won!");
+               JOptionPane.showMessageDialog(null, currentPlayer.getUsername() + " won!");
+              }
                
                
                /**
