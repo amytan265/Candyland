@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
 public class Board extends JFrame {
 
     private User currentPlayer;
+    public int score = 0;
 
     public Board(User currentPlayer) {
     
@@ -67,7 +68,7 @@ public class Board extends JFrame {
         this.add(jpEast, BorderLayout.EAST); 
         */
         
-        this.setResizable(true);
+        this.setResizable(false);
         pack();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
@@ -115,8 +116,8 @@ public class Board extends JFrame {
             jpMain.setLayout(new BorderLayout());
             jtaMain = new JTextArea(10, 30);
             jtaMain.setEditable(false);
-            //JScrollPane jspMain = new JScrollPane(jtaMain);
-            //jpMain.add(jspMain);
+            JScrollPane jspMain = new JScrollPane(jtaMain);
+            jpMain.add(jspMain);
         
             JPanel jpBottom = new JPanel();
             jpBottom.setLayout(new FlowLayout());
@@ -249,10 +250,103 @@ public class Board extends JFrame {
 
             }
             else if(choice.equals("Draw")){
-               System.out.println("Draw was clicked");
-            }
-            else if(choice.equals("Send")){
-               System.out.println("Send was clicked");
+               String currColor = Card.getCurrentColor();      // calls method which gets current color
+               String drawnCard = Card.getNextColor();
+               switch(currColor){        // Parent switch case
+                  case "purple" :
+                     switch(drawnCard){   //nested switch case
+                        case "purple":
+                           score += 5;
+                           break;
+                        case "pink":
+                           score += 1;
+                           break;
+                        case "blue":
+                           score += 2;
+                           break;
+                        case "yellow":
+                           score += 3;
+                           break;
+                        case "orange":
+                           score += 4;
+                           break;
+                      }
+                  case "pink" :
+                     switch(drawnCard){   //nested switch case
+                        case "purple":
+                           score += 4;
+                           break;
+                        case "pink":
+                           score += 5;
+                           break;
+                        case "blue":
+                           score += 1;
+                           break;
+                        case "yellow":
+                           score += 2;
+                           break;
+                        case "orange":
+                           score += 3;
+                           break;
+                      }
+                  case "blue" :
+                     switch(drawnCard){   //nested switch case
+                        case "purple":
+                           score += 3;
+                           break;
+                        case "pink":
+                           score += 4;
+                           break;
+                        case "blue":
+                           score += 5;
+                           break;
+                        case "yellow":
+                           score += 1;
+                           break;
+                        case "orange":
+                           score += 2;
+                           break;
+                      }
+                  case "yellow" :
+                     switch(drawnCard){   //nested switch case
+                        case "purple":
+                           score += 2;
+                           break;
+                        case "pink":
+                           score += 3;
+                           break;
+                        case "blue":
+                           score += 4;
+                           break;
+                        case "yellow":
+                           score += 5;
+                           break;
+                        case "orange":
+                           score += 1;
+                           break;
+                      }
+                  case "orange" :
+                     switch(drawnCard){   //nested switch case
+                        case "purple":
+                           score += 1;
+                           break;
+                        case "pink":
+                           score += 2;
+                           break;
+                        case "blue":
+                           score += 3;
+                           break;
+                        case "yellow":
+                           score += 4;
+                           break;
+                        case "orange":
+                           score += 5;
+                           break;
+                      }
+               
+               
+               
+               }
             }
             else if(choice.equals("Exit")){
                System.exit(0);
