@@ -180,7 +180,7 @@ public class Board extends JFrame {
             
             this.add(jpCard, BorderLayout.CENTER);
             this.add(jpButtons, BorderLayout.EAST); 
-        }
+        } 
     }
     
     
