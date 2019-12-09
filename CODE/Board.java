@@ -303,8 +303,8 @@ public class Board extends JFrame {
                String currColor = card.getCurrentColor();      // calls method which gets current color
                String drawnCard = card.getNextColor();
                
-               // System.out.println(currColor);
-               // System.out.println(drawnCard);
+               System.out.println(currColor);
+               System.out.println(drawnCard);
                
                if(score < 50){
                   if (currColor.equals("purple")) {
