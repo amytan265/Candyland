@@ -57,7 +57,7 @@ public class Board extends JFrame {
             menu.add(jmKey);
         this.setJMenuBar(menu);
          
-        this.add(new CLBoard(), BorderLayout.WEST);
+        //this.add(new CLBoard(), BorderLayout.WEST);
         // this.add(new CLChat(), BorderLayout.EAST);
         
         // creates east panel of GUI
@@ -190,15 +190,21 @@ public class Board extends JFrame {
         public CLDraw() {
         
             JPanel jpCard = new JPanel();
+            jpCard.setLayout(new GridLayout(1, 0));
             
-            JPanel jpButtons = new JPanel();
-            jpButtons.setLayout(new GridLayout(2, 1, 0, 10));   //rows, columns, hgap vgap
-            jpButtons.add(jbDraw = new JButton("Draw"));
+            JLabel mockup = new JLabel();
+            mockup.setIcon(new ImageIcon("Assets/cardmockup.png"));
+            
+            jpCard.add(mockup);
+            jpCard.add(jbDraw = new JButton("Draw"));
+            
+            //JPanel jpButtons = new JPanel();
+            // jpButtons.setLayout(new GridLayout(2, 1, 0, 10));   //rows, columns, hgap vgap
+            // jpButtons.add(jbDraw = new JButton("Draw"));
             MyAdapter ma = new MyAdapter();
             jbDraw.addActionListener(ma);
             
             this.add(jpCard);
-            this.add(jpButtons); 
         } 
     }
     
