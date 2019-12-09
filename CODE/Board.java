@@ -186,20 +186,19 @@ public class Board extends JFrame {
     class CLDraw extends JPanel {
     
         private JButton jbDraw;
-        private JButton jbKey;
         
         public CLDraw() {
         
             JPanel jpCard = new JPanel();
             
             JPanel jpButtons = new JPanel();
-            jpButtons.setLayout(new GridLayout(0, 1));
+            jpButtons.setLayout(new GridLayout(2, 1, 0, 10));   //rows, columns, hgap vgap
             jpButtons.add(jbDraw = new JButton("Draw"));
             MyAdapter ma = new MyAdapter();
             jbDraw.addActionListener(ma);
             
-            this.add(jpCard, BorderLayout.CENTER);
-            this.add(jpButtons, BorderLayout.EAST); 
+            this.add(jpCard);
+            this.add(jpButtons); 
         } 
     }
     
@@ -270,8 +269,9 @@ public class Board extends JFrame {
 
             }
             else if(choice.equals("Draw")){
-               String currColor = Card.getCurrentColor();      // calls method which gets current color
-               String drawnCard = Card.getNextColor();
+               Card card = new Card();
+               String currColor = card.getCurrentColor();      // calls method which gets current color
+               String drawnCard = card.getNextColor();
                switch(currColor){        // Parent switch case
                   case "purple" :
                      switch(drawnCard){   //nested switch case
