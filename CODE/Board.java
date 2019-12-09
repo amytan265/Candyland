@@ -58,7 +58,20 @@ public class Board extends JFrame {
         this.setJMenuBar(menu);
          
         this.add(new CLBoard(), BorderLayout.WEST);
-        this.add(new CLChat(), BorderLayout.EAST);
+        // this.add(new CLChat(), BorderLayout.EAST);
+        
+        // creates east panel of GUI
+        // jpControls - full east panel of Chat and jpMini
+        // jpMini - active users, draw 
+        JPanel jpControls = new JPanel();
+            jpControls.setLayout(new BorderLayout());
+            jpControls.add(new CLChat(), BorderLayout.NORTH);
+                JPanel jpMini = new JPanel();
+                jpMini.setLayout(new BorderLayout());
+                jpMini.add(new CLActive(), BorderLayout.WEST);
+                jpMini.add(new CLDraw(), BorderLayout.EAST);
+            jpControls.add(jpMini, BorderLayout.SOUTH);
+        this.add(jpControls, BorderLayout.EAST);
         
         /**
         JPanel jpEast = new JPanel();
@@ -162,6 +175,12 @@ public class Board extends JFrame {
             } catch (IOException ioe) {}
           }
         }
+    }
+    
+    class CLActive extends JPanel {
+    
+    
+    
     }
     
     class CLDraw extends JPanel {
