@@ -95,8 +95,97 @@ public class Board extends JFrame {
             JLabel board = new JLabel(imageIcon);
             this.add(board);
             //this.setPreferredSize(new Dimension(200, 200));
+            
+            DraggableComponent one = new DraggableComponent(new ImageIcon("Assets/redgin.png").getImage());
+            DraggableComponent two = new DraggableComponent(new ImageIcon("Assets/greengin.png").getImage());
+            DraggableComponent three = new DraggableComponent(new ImageIcon("Assets/bluegin.png").getImage());
+            DraggableComponent four = new DraggableComponent(new ImageIcon("Assets/yellowgin.png").getImage());
+                                  
+            board.add(one);
+            board.add(two);
+            board.add(three);
+            board.add(four);
         }
     }
+    
+    class DraggableComponent extends JPanel {
+          
+     private volatile int screenX = 0;
+     private volatile int screenY = 0;
+     private volatile int myX = 0;
+     private volatile int myY = 0;
+     
+     private Image img;
+
+
+     public DraggableComponent(Image img) {
+     
+        this.img = img;
+        Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
+        setPreferredSize(size);
+        setMinimumSize(size);
+        setMaximumSize(size);
+        setSize(size);
+        setLayout(null);
+        setOpaque(false);
+             
+        //setBackground(Color.WHITE);
+        //setSize(25, 25);
+          
+       
+       addMouseListener(new MouseListener() {
+   
+         @Override
+         public void mouseClicked(MouseEvent e) { }
+         
+         //record cursor's position on screen when mouse is pressed 
+         @Override
+         public void mousePressed(MouseEvent e) {
+           screenX = e.getXOnScreen();
+           screenY = e.getYOnScreen();
+   
+           myX = getX();
+           myY = getY();
+         }
+   
+         @Override
+         public void mouseReleased(MouseEvent e) { }
+   
+         @Override
+         public void mouseEntered(MouseEvent e) { }
+   
+         @Override
+         public void mouseExited(MouseEvent e) { }
+   
+       });
+       
+       //calculate distance between old mouse position and new mouse position 
+       addMouseMotionListener(new MouseMotionListener() {
+   
+         @Override
+         public void mouseDragged(MouseEvent e) {
+           int deltaX = e.getXOnScreen() - screenX;
+           int deltaY = e.getYOnScreen() - screenY;
+   
+           setLocation(myX + deltaX, myY + deltaY);
+         }
+   
+         @Override
+         public void mouseMoved(MouseEvent e) { }
+   
+       });
+     }
+     
+     public DraggableComponent(String img) {
+       this(new ImageIcon(img).getImage());
+     }
+   
+     public void paintComponent(Graphics g) {
+       g.drawImage(img, 0, 0, null);
+     }
+     
+
+   }//end of DraggableComponent class
     
     class CLChat extends JPanel {
         
