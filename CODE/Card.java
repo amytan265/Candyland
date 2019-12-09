@@ -23,11 +23,6 @@ public class Card extends JLabel {
         colors.add("orange");
     }
 
-    public String getCurrentColor() {
-    
-        return currentColor;
-    }
-
     public String getNextColor() {
         
         randomizeColor = this.getRandColor();
@@ -56,8 +51,14 @@ public class Card extends JLabel {
             
             setIcon(new ImageIcon("Assets/orange.png"));
             currentColor = randomizeColor;
+            // randomizeColor = currentColor;
         }
         
+        return currentColor;
+    }
+    
+    public String getCurrentColor() {
+    
         return currentColor;
     }
     

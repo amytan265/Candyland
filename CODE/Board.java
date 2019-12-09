@@ -57,7 +57,7 @@ public class Board extends JFrame {
             menu.add(jmKey);
         this.setJMenuBar(menu);
          
-        //this.add(new CLBoard(), BorderLayout.WEST);
+        this.add(new CLBoard(), BorderLayout.WEST);
         // this.add(new CLChat(), BorderLayout.EAST);
         
         // creates east panel of GUI
@@ -65,7 +65,7 @@ public class Board extends JFrame {
         // jpMini - active users, draw 
         JPanel jpControls = new JPanel();
             jpControls.setLayout(new BorderLayout());
-            jpControls.add(new CLChat(), BorderLayout.NORTH);
+            jpControls.add(new CLChat(), BorderLayout.CENTER);
                 JPanel jpMini = new JPanel();
                 jpMini.setLayout(new BorderLayout());
                 jpMini.add(new CLActive(), BorderLayout.WEST);
@@ -179,7 +179,33 @@ public class Board extends JFrame {
     
     class CLActive extends JPanel {
     
-    
+        public CLActive() {
+        
+            this.setLayout(new GridLayout(3, 0));
+            
+            // JLabel jlHeader = new JLabel ("Users Active:");
+            // jlHeader.setFont(new Font("Arial", Font.BOLD, 24));
+            // jlHeader.setForeground(Color.GREEN);
+       
+            JRadioButton jrb1 = new JRadioButton("Amy");
+            JRadioButton jrb2 = new JRadioButton("Regina");
+            JRadioButton jrb3 = new JRadioButton("Miki");
+            
+            jrb1.setFont(new Font("Arial", Font.BOLD, 24));
+            jrb2.setFont(new Font("Arial", Font.BOLD, 24));
+            jrb3.setFont(new Font("Arial", Font.BOLD, 24));
+            
+            jrb1.setSelected(true);
+            jrb2.setSelected(true);
+            jrb3.setSelected(true);
+            
+            
+            // this.add(jlHeader);
+            this.add(jrb1);
+            this.add(jrb2);
+            this.add(jrb3);
+        
+        }
     
     }
     
@@ -190,17 +216,14 @@ public class Board extends JFrame {
         public CLDraw() {
         
             JPanel jpCard = new JPanel();
-            jpCard.setLayout(new GridLayout(1, 0));
+            jpCard.setLayout(new GridLayout(2, 1));
             
             JLabel mockup = new JLabel();
-            mockup.setIcon(new ImageIcon("Assets/cardmockup.png"));
+            mockup.setIcon(new ImageIcon("../Assets/cardmockup.png"));
             
             jpCard.add(mockup);
             jpCard.add(jbDraw = new JButton("Draw"));
-            
-            //JPanel jpButtons = new JPanel();
-            // jpButtons.setLayout(new GridLayout(2, 1, 0, 10));   //rows, columns, hgap vgap
-            // jpButtons.add(jbDraw = new JButton("Draw"));
+
             MyAdapter ma = new MyAdapter();
             jbDraw.addActionListener(ma);
             
@@ -211,6 +234,7 @@ public class Board extends JFrame {
     
     class MyAdapter implements ActionListener {     // You can only have one public class in a file so you don't write public 
 
+         Card card = new Card();
          
          public void actionPerformed(ActionEvent ae){
             String choice = ae.getActionCommand();
@@ -275,10 +299,14 @@ public class Board extends JFrame {
 
             }
             else if(choice.equals("Draw")){
-               Card card = new Card();
+           
+             
                String currColor = card.getCurrentColor();      // calls method which gets current color
                String drawnCard = card.getNextColor();
-               switch(currColor){        // Parent switch case
+               
+               System.out.println(currColor);
+               System.out.println(drawnCard);
+               /**switch(currColor){        // Parent switch case
                   case "purple" :
                      switch(drawnCard){   //nested switch case
                         case "purple":
@@ -373,6 +401,7 @@ public class Board extends JFrame {
                
                
                }
+               */
             }
             else if(choice.equals("Exit")){
                System.exit(0);
