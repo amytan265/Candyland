@@ -199,18 +199,26 @@ public class Board extends JFrame {
         
         public CLChat() {
         
-            try {
+        try {
         
                 // s = new Socket("129.21.73.119", 16789);
                 s = new Socket("129.21.228.27", 16789);
                 in = new BufferedReader(new InputStreamReader(s.getInputStream()));
                 out = new PrintWriter(new OutputStreamWriter(s.getOutputStream()));
             
-            } catch (IOException ioe) {} 
-            
+         } catch (IOException ioe) {} 
+           catch(NullPointerException npe){
+               System.out.println("Caught Exception: " + npe.getMessage());
+         }
+           catch(Exception e){
+               System.out.println("Caught Exception.");
+         }
+         finally{   
             this.ChatGUI();
             new ReadMessages().start();
          }
+         }
+
          
          public void ChatGUI() {
 
@@ -262,6 +270,12 @@ public class Board extends JFrame {
                     jtaMain.append(line + "\n");     
                 }
             } catch (IOException ioe) {}
+              catch(NullPointerException npe){
+               System.out.println("Caught Exception: " + npe.getMessage());
+              }
+              catch(Exception e){
+               System.out.println("Caught Exception.");
+              }
           }
         }
     }
@@ -392,90 +406,97 @@ public class Board extends JFrame {
                String currColor = card.getCurrentColor();      // calls method which gets current color
                String drawnCard = card.getNextColor();
                
-               System.out.println(currColor);
-               System.out.println(drawnCard);
-               
-               if(score < 50){
-                  if (currColor.equals("purple")) {
+               // System.out.println(currColor);
+               // System.out.println(drawnCard);
                   
-                     if (drawnCard.equals("purple")) {
-                        score += 5;
-                     } else if (drawnCard.equals("pink")) {
-                        score += 1;
-                     } else if (drawnCard.equals("blue")) {
-                        score += 2;
-                     } else if (drawnCard.equals("yellow")) {
-                        score += 3;
-                     } else if (drawnCard.equals("orange")) {
-                        score += 4;
+                 try{
+                  if(score < 50){
+                     if (currColor.equals("purple")) {
+                     
+                        if (drawnCard.equals("purple")) {
+                           score += 5;
+                        } else if (drawnCard.equals("pink")) {
+                           score += 1;
+                        } else if (drawnCard.equals("blue")) {
+                           score += 2;
+                        } else if (drawnCard.equals("yellow")) {
+                           score += 3;
+                        } else if (drawnCard.equals("orange")) {
+                           score += 4;
+                        } 
                      } 
-                  } 
-                  
-                  if (currColor.equals("pink")) {
-                  
-                     if (drawnCard.equals("purple")) {
-                        score += 4;
-                     } else if (drawnCard.equals("pink")) {
-                        score += 5;
-                     } else if (drawnCard.equals("blue")) {
-                        score += 1;
-                     } else if (drawnCard.equals("yellow")) {
-                        score += 2;
-                     } else if (drawnCard.equals("orange")) {
-                        score += 3;
+                     
+                     if (currColor.equals("pink")) {
+                     
+                        if (drawnCard.equals("purple")) {
+                           score += 4;
+                        } else if (drawnCard.equals("pink")) {
+                           score += 5;
+                        } else if (drawnCard.equals("blue")) {
+                           score += 1;
+                        } else if (drawnCard.equals("yellow")) {
+                           score += 2;
+                        } else if (drawnCard.equals("orange")) {
+                           score += 3;
+                        } 
                      } 
-                  } 
-                  
-                   if (currColor.equals("blue")) {
-                  
-                     if (drawnCard.equals("purple")) {
-                        score += 3;
-                     } else if (drawnCard.equals("pink")) {
-                        score += 4;
-                     } else if (drawnCard.equals("blue")) {
-                        score += 5;
-                     } else if (drawnCard.equals("yellow")) {
-                        score += 1;
-                     } else if (drawnCard.equals("orange")) {
-                        score += 2;
+                     
+                      if (currColor.equals("blue")) {
+                     
+                        if (drawnCard.equals("purple")) {
+                           score += 3;
+                        } else if (drawnCard.equals("pink")) {
+                           score += 4;
+                        } else if (drawnCard.equals("blue")) {
+                           score += 5;
+                        } else if (drawnCard.equals("yellow")) {
+                           score += 1;
+                        } else if (drawnCard.equals("orange")) {
+                           score += 2;
+                        } 
                      } 
-                  } 
-                  
-                  if (currColor.equals("yellow")) {
-                  
-                     if (drawnCard.equals("purple")) {
-                        score += 2;
-                     } else if (drawnCard.equals("pink")) {
-                        score += 3;
-                     } else if (drawnCard.equals("blue")) {
-                        score += 4;
-                     } else if (drawnCard.equals("yellow")) {
-                        score += 5;
-                     } else if (drawnCard.equals("orange")) {
-                        score += 1;
+                     
+                     if (currColor.equals("yellow")) {
+                     
+                        if (drawnCard.equals("purple")) {
+                           score += 2;
+                        } else if (drawnCard.equals("pink")) {
+                           score += 3;
+                        } else if (drawnCard.equals("blue")) {
+                           score += 4;
+                        } else if (drawnCard.equals("yellow")) {
+                           score += 5;
+                        } else if (drawnCard.equals("orange")) {
+                           score += 1;
+                        } 
                      } 
-                  } 
-                  
-                  if (currColor.equals("orange")) {
-                  
-                     if (drawnCard.equals("purple")) {
-                        score += 1;
-                     } else if (drawnCard.equals("pink")) {
-                        score += 2;
-                     } else if (drawnCard.equals("blue")) {
-                        score += 3;
-                     } else if (drawnCard.equals("yellow")) {
-                        score += 4;
-                     } else if (drawnCard.equals("orange")) {
-                        score += 5;
+                     
+                     if (currColor.equals("orange")) {
+                     
+                        if (drawnCard.equals("purple")) {
+                           score += 1;
+                        } else if (drawnCard.equals("pink")) {
+                           score += 2;
+                        } else if (drawnCard.equals("blue")) {
+                           score += 3;
+                        } else if (drawnCard.equals("yellow")) {
+                           score += 4;
+                        } else if (drawnCard.equals("orange")) {
+                           score += 5;
+                        } 
                      } 
-                  } 
+                 }
+                 else {
+                  System.out.println(currentPlayer.getUsername() + " won!");
+                  JOptionPane.showMessageDialog(null, currentPlayer.getUsername() + " won!");
+                 }
               }
-              else {
-               System.out.println(currentPlayer.getUsername() + " won!");
-               JOptionPane.showMessageDialog(null, currentPlayer.getUsername() + " won!");
+              catch(NullPointerException npe){
+               System.out.println("Caught Exception: " + npe.getMessage());
               }
-               
+              catch(Exception e){
+               System.out.println("Caught Exception.");
+              }
                
                /**
                switch(currColor){        // Parent switch case
@@ -574,9 +595,10 @@ public class Board extends JFrame {
                
                }
                */
-               
+            finally{   
                currentPlayer.setScore(score);
                System.out.println(score);
+            }
                
             }
             else if(choice.equals("Exit")){
