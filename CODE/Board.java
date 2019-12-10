@@ -202,7 +202,7 @@ public class Board extends JFrame {
             try {
         
                 // s = new Socket("129.21.73.119", 16789);
-                s = new Socket("localhost", 16789);
+                s = new Socket("129.21.228.27", 16789);
                 in = new BufferedReader(new InputStreamReader(s.getInputStream()));
                 out = new PrintWriter(new OutputStreamWriter(s.getOutputStream()));
             
