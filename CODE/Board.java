@@ -91,7 +91,7 @@ public class Board extends JFrame {
     
         public CLBoard() {
             
-            ImageIcon imageIcon = new ImageIcon(this.getClass().getResource("Assets/board.jpg"));
+            ImageIcon imageIcon = new ImageIcon(this.getClass().getResource("Assets/candylandboard.png"));
             JLabel board = new JLabel(imageIcon);
             this.add(board);
             //this.setPreferredSize(new Dimension(200, 200));
