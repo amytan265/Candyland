@@ -73,7 +73,6 @@ public class Server {
         public void run() {
         
             Object readObject = null;
-            Object readSecondObject = null;
             
             try {
                 while(keepGoing) {
@@ -101,12 +100,7 @@ public class Server {
 
                         } else if (readObject.equals("getPlayers")) {
                            
-                           for (User player : players) {
-                                
-                                System.out.println(player.getUsername());
-                                oos.writeObject(player.getUsername());
-                                oos.flush();
-                           }
+                       
                            
                         } else {
                             
