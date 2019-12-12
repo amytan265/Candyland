@@ -16,6 +16,8 @@ public class Server {
     // thread safe list of clients
     public static Vector<ClientThread> clients = new Vector<ClientThread>();
     
+    Vector<User> players = new Vector<User>();
+    
     public static void main(String[] args) {
     
         new Server();
@@ -46,8 +48,8 @@ public class Server {
     class ClientThread extends Thread {
         
         // attributes
-        BufferedReader in;
-        PrintWriter out;
+        ObjectInputStream ois;
+        ObjectOutputStream oos;
         Socket cs;
         
         boolean keepGoing = true;
@@ -60,9 +62,8 @@ public class Server {
             
             try  {
                 
-                // instantiates bufferedreader, printwriter for clientthread, start run method
-                in = new BufferedReader(new InputStreamReader(cs.getInputStream()));
-                out = new PrintWriter(new OutputStreamWriter(cs.getOutputStream()));
+                oos = new ObjectOutputStream(cs.getOutputStream());
+                ois = new ObjectInputStream(cs.getInputStream());
                 this.start();
             
             } catch (IOException ioe) { }      
@@ -71,42 +72,54 @@ public class Server {
         // run method
         public void run() {
         
-            String line;
+            Object readObject = null;
+            Object readSecondObject = null;
+            
             try {
                 while(keepGoing) {
                     
                     // reads line 
-                    line = in.readLine();
+                    readObject = ois.readObject();
                     
-                    if (line.equals("Exit")) {
+                    if (readObject instanceof String) {
                         
-                        // recieves exit message, prints that user has exited
-                        System.out.println("Client Exited");
-                        keepGoing = false;
-                        
-                    } else if (line.equals("numberOfUsers")) {
-                    
-                        if (clients.size() > 4) {
+                        if (readObject.equals("numberOfUsers")) {
                             
-                            out.println("max");
-                            out.flush();
+                            if (clients.size() > 4) {
                             
+                                oos.writeObject("max");
+                                oos.flush();
+                            
+                            } else {
+                            
+                                oos.writeObject("continue");
+                                oos.flush(); 
+                                                 
+                                User readPlayer = (User) ois.readObject();
+                                players.add(readPlayer);
+                            }
+
+                        } else if (readObject.equals("getPlayers")) {
+                           
+                           for (User player : players) {
+                                
+                                System.out.println(player.getUsername());
+                                oos.writeObject(player.getUsername());
+                                oos.flush();
+                           }
+                           
                         } else {
                             
-                            out.println("continue");
-                            out.flush();
-                        }
-                       
-                    } else {
-                        
-                        // iterates through clients to print message, flush
-                        for (int i = 0; i < clients.size(); i++) {
-                            clients.get(i).out.println(line);
-                            clients.get(i).out.flush();
-                        }
-                    }
+                            for (int i = 0; i < clients.size(); i++) {
+                            
+                                clients.get(i).oos.writeObject(readObject);
+                                clients.get(i).oos.flush();
+                            }              
+                        }                       
+                    } 
                 }
-            } catch (IOException ioe) {}
+            } catch (IOException ioe) {
+            } catch (ClassNotFoundException cnfe) { }
         }
     }
 }

@@ -19,26 +19,26 @@ import javax.swing.border.*;
 public class Board extends JFrame {
 
     private User currentPlayer;
+    private Vector<User> players;
     
     private JTextArea jtaMain;
     private JTextField jtfMsg;
     private JButton jbSend;
     
     private Socket s;
-    private BufferedReader in = null;
-    private PrintWriter out = null;
-    private Vector<User> players = null;
+    private ObjectInputStream ois = null;
+    private ObjectOutputStream oos = null;
    
     public int score = 0;
     public JLabel cardIcon;
 
-    public Board(User currentPlayer, Socket s, BufferedReader in, PrintWriter out) {
+    public Board(User currentPlayer, Socket s, ObjectInputStream ois, ObjectOutputStream oos) {
     
         this.currentPlayer = currentPlayer;
         this.s = s;
-        this.in = in;
-        this.out = out;
-    
+        this.ois = ois;
+        this.oos = oos;
+        
         this.setSize(1050, 1000);
         this.setLocationRelativeTo(null);
         this.setTitle("CANDYLAND");
@@ -244,11 +244,12 @@ public class Board extends JFrame {
          
          jbSend.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent ae) {
-            out.println(currentPlayer.getUsername() + ": " + jtfMsg.getText());
-            System.out.println(currentPlayer.getUsername() + ": " + jtfMsg.getText());
-            out.flush();
-            jtfMsg.setText("");
-            
+            try {
+                oos.writeObject(currentPlayer.getUsername() + ": " + jtfMsg.getText());
+                oos.flush();
+                // System.out.println(currentPlayer.getUsername() + ": " + jtfMsg.getText());
+                jtfMsg.setText("");
+            } catch (IOException ioe) { System.out.println(ioe.getMessage()); }
          }
        });
        
@@ -259,43 +260,65 @@ public class Board extends JFrame {
     
         public CLActive() {
         
-            this.setLayout(new GridLayout(3, 0));
-            
-            // JLabel jlHeader = new JLabel ("Users Active:");
-            // jlHeader.setFont(new Font("Arial", Font.BOLD, 24));
-            // jlHeader.setForeground(Color.GREEN);
-
-            
-            Border border = BorderFactory.createTitledBorder("Active Users");
-            this.setBorder(border);
-            this.setPreferredSize(new Dimension(350, 200));
-       
-            JCheckBox jcb1 = new JCheckBox("Amy");
-            JCheckBox jcb2 = new JCheckBox("Regina");
-            JCheckBox jcb3 = new JCheckBox("Miki");
-            
-            jcb1.setFont(new Font("Arial", Font.BOLD, 12));
-            jcb2.setFont(new Font("Arial", Font.BOLD, 12));
-            jcb3.setFont(new Font("Arial", Font.BOLD, 12));
-            
-            jcb1.setSelected(true);
-            jcb2.setSelected(true);
-            jcb3.setSelected(true);
-            
-            jcb1.setSelected(true);
-            jcb2.setSelected(true);
-            jcb3.setSelected(true);
-                      
-            jcb2.setEnabled(false); 
-            jcb3.setEnabled(false); 
-            
-            // this.add(jlHeader);
-            this.add(jcb1);
-            this.add(jcb2);
-            this.add(jcb3);
-        
+            try {
+                     
+                this.setLayout(new GridLayout(3, 0));
+                
+                Border border = BorderFactory.createTitledBorder("Active Users");
+                this.setBorder(border);
+                this.setPreferredSize(new Dimension(350, 200));
+                
+                oos.writeObject("getPlayers");
+                oos.flush();
+                
+                /**
+                boolean keepGoing = true;
+                Object readPlayer;
+                
+                while (keepGoing) {
+                
+                    readPlayer = ois.readObject();
+                    
+                    if (readPlayer != null) {
+                    
+                        User player = (User) readPlayer;
+                        players.add(player);
+                        
+                     } else {
+                     
+                        keepGoing = false;
+                        
+                     }
+                }
+                */
+                    
+                JCheckBox jcb1 = new JCheckBox("Amy");
+                JCheckBox jcb2 = new JCheckBox("Regina");
+                JCheckBox jcb3 = new JCheckBox("Miki");
+                
+                jcb1.setFont(new Font("Arial", Font.BOLD, 12));
+                jcb2.setFont(new Font("Arial", Font.BOLD, 12));
+                jcb3.setFont(new Font("Arial", Font.BOLD, 12));
+                
+                jcb1.setSelected(true);
+                jcb2.setSelected(true);
+                jcb3.setSelected(true);
+                
+                jcb1.setSelected(true);
+                jcb2.setSelected(true);
+                jcb3.setSelected(true);
+                          
+                jcb2.setEnabled(false); 
+                jcb3.setEnabled(false); 
+                
+                // this.add(jlHeader);
+                this.add(jcb1);
+                this.add(jcb2);
+                this.add(jcb3);
+                
+           } catch (IOException ioe) { System.out.println(ioe.getMessage()); 
+           } // catch (ClassNotFoundException cnfe) { System.out.println(cnfe.getMessage());  }
         }
-    
     }
     
     class CLDraw extends JPanel {
@@ -509,39 +532,31 @@ public class Board extends JFrame {
             else if(choice.equals("Exit")){
                System.exit(0);
             }
-             
-            
          }
      } // end class MyAdapter
-     
-      class ReadMessages extends Thread {
+        
+     class ReadMessages extends Thread {
 
-      String line;
+     Object readObject;
     
       // run method
       public void run() {
         try {
             while(true) {
+            
+            readObject = ois.readObject();
+            
+            if (readObject instanceof String) {
                 
                 // reads incoming messages, appends to JTextArea
-                line = in.readLine();
-                jtaMain.append(line + "\n");     
-            }
-        } catch (IOException ioe) {}
-          catch(NullPointerException npe){
-           System.out.println("Caught Exception: " + npe.getMessage());
+                readObject = (String) readObject;
+                jtaMain.append(readObject + "\n");  
+            } 
           }
-          catch(Exception e){
-           System.out.println("Caught Exception.");
-          }
-       }
-    }
-    
+        } catch (IOException ioe) { System.out.println(ioe.getMessage()); 
+        } catch (NullPointerException npe) { System.out.println(npe.getMessage());
+        } catch (Exception e) { System.out.println(e.getMessage());
+        }
+      }
+    }  
 }
-
-
-
-
-
-
-

@@ -1,4 +1,6 @@
-
+import java.io.*;
+import java.net.*;
+import javax.swing.*;
 /**
   * ISTE 121 - CANDYLAND
   * User class.
@@ -8,7 +10,7 @@
   * @author Amy Tan
   * @version 1.0, 120219
   */
-public class User {
+public class User implements Serializable {
     
     private int id;
     private String username;
