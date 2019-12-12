@@ -107,6 +107,11 @@ public class Board extends JFrame {
             board.add(two);
             board.add(three);
             board.add(four);
+            
+            one.setLocation(0, 500);
+            two.setLocation(0, 510);
+            three.setLocation(0,520);
+            four.setLocation(0, 530);
         }
     }
     
