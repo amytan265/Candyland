@@ -324,7 +324,7 @@ public class Board extends JFrame {
             jpCard.setLayout(new GridLayout(2, 1));
             
             cardIcon = new JLabel();
-            cardIcon.setIcon(new ImageIcon("/Assets/startCard.png"));
+            cardIcon.setIcon(new ImageIcon("Assets/startCard.png"));
             
             jpCard.add(cardIcon);
             jpCard.add(jbDraw = new JButton("Draw"));
