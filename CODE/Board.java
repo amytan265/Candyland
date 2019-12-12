@@ -419,6 +419,13 @@ public class Board extends JFrame {
                String currColor = card.getCurrentColor();      // calls method which gets current color
                String drawnCard = card.getNextColor();
                
+               try {
+               
+                  oos.writeObject(currentPlayer.getUsername() + " drew a " + card.getCurrentColor() + " card!");
+                  oos.flush();
+               
+               } catch (IOException ioe) { }
+               
                // System.out.println(currColor);
                // System.out.println(drawnCard);
                   
@@ -963,8 +970,12 @@ public class Board extends JFrame {
                      } // end of lollipop instance
                  }
                  else {
-                  System.out.println(currentPlayer.getUsername() + " won!");
-                  JOptionPane.showMessageDialog(null, currentPlayer.getUsername() + " won!");
+                    
+                    oos.writeObject(currentPlayer.getUsername() + " won!");
+                    oos.flush();
+                 
+                    System.out.println(currentPlayer.getUsername() + " won!");
+                    JOptionPane.showMessageDialog(null, currentPlayer.getUsername() + " won!");
                  }
               }
               catch(NullPointerException npe){

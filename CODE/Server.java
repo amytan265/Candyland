@@ -100,7 +100,10 @@ public class Server {
 
                         } else if (readObject.equals("getPlayers")) {
                            
-                       
+                           /**
+                           oos.writeObject(players);
+                           oos.flush();
+                           */
                            
                         } else {
                             
