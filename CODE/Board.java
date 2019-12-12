@@ -413,7 +413,21 @@ public class Board extends JFrame {
                   
                  try{
                   if(score < 50){
-                     if (currColor.equals("purple")) {
+                     if (score == 0){
+                        if (drawnCard.equals("purple")) {
+                           score += 5;
+                        } else if (drawnCard.equals("pink")) {
+                           score += 1;
+                        } else if (drawnCard.equals("blue")) {
+                           score += 2;
+                        } else if (drawnCard.equals("yellow")) {
+                           score += 3;
+                        } else if (drawnCard.equals("orange")) {
+                           score += 4;
+                        } 
+
+                     }
+                     else if (currColor.equals("purple")) {
                      
                         if (drawnCard.equals("purple")) {
                            score += 5;
@@ -428,7 +442,7 @@ public class Board extends JFrame {
                         } 
                      } 
                      
-                     if (currColor.equals("pink")) {
+                     else if (currColor.equals("pink")) {
                      
                         if (drawnCard.equals("purple")) {
                            score += 4;
@@ -443,7 +457,7 @@ public class Board extends JFrame {
                         } 
                      } 
                      
-                      if (currColor.equals("blue")) {
+                      else if (currColor.equals("blue")) {
                      
                         if (drawnCard.equals("purple")) {
                            score += 3;
@@ -458,7 +472,7 @@ public class Board extends JFrame {
                         } 
                      } 
                      
-                     if (currColor.equals("yellow")) {
+                     else if (currColor.equals("yellow")) {
                      
                         if (drawnCard.equals("purple")) {
                            score += 2;
@@ -473,7 +487,7 @@ public class Board extends JFrame {
                         } 
                      } 
                      
-                     if (currColor.equals("orange")) {
+                     else if (currColor.equals("orange")) {
                      
                         if (drawnCard.equals("purple")) {
                            score += 1;
