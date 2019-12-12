@@ -108,7 +108,11 @@ public class Board extends JFrame {
     
         public CLBoard() {
             
-            ImageIcon imageIcon = new ImageIcon(this.getClass().getResource("Assets/candylandboard.png"));
+            ImageIcon imageIcon = new ImageIcon(this.getClass().getResource("Assets/candylandboardRevised.png"));
+            Image image = imageIcon.getImage();
+            Image newimg = image.getScaledInstance(709, 800,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+            imageIcon = new ImageIcon(newimg);  // transform it back
+            //ImageIcon scaledImage = imageIcon.getImageIcon().getScaledInstance(709, 800,Image.SCALE_DEFAULT);
             JLabel board = new JLabel(imageIcon);
             this.add(board);
             //this.setPreferredSize(new Dimension(200, 200));
