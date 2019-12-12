@@ -21,6 +21,13 @@ public class Card extends JLabel {
         colors.add("blue");
         colors.add("yellow");
         colors.add("orange");
+        colors.add("blackStar");
+        colors.add("redStar");
+        colors.add("goldStar");
+        colors.add("candyCane");
+        colors.add("candyCorn");
+        colors.add("lollipop");
+        colors.add("chocolate");
     }
 
     public String getNextColor() {
@@ -47,6 +54,34 @@ public class Card extends JLabel {
             
             currentColor = randomizeColor;
             // randomizeColor = currentColor;
+        } else if (randomizeColor.equals("lollipop")) {
+            
+            currentColor = randomizeColor;
+        
+        } else if (randomizeColor.equals("chocolate")) {
+            
+            currentColor = randomizeColor;
+        
+        } else if (randomizeColor.equals("candyCane")) {
+            
+            currentColor = randomizeColor;
+        
+        } else if (randomizeColor.equals("candyCorn")) {
+            
+            currentColor = randomizeColor;
+        
+        } else if (randomizeColor.equals("redStar")) {
+            
+            currentColor = randomizeColor;
+        
+        } else if (randomizeColor.equals("goldStar")) {
+            
+            currentColor = randomizeColor;
+        
+        } else if (randomizeColor.equals("blackStar")) {
+            
+            currentColor = randomizeColor;
+        
         }
         
         return currentColor;

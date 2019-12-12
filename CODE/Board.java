@@ -108,7 +108,11 @@ public class Board extends JFrame {
     
         public CLBoard() {
             
-            ImageIcon imageIcon = new ImageIcon(this.getClass().getResource("Assets/candylandboard.png"));
+            ImageIcon imageIcon = new ImageIcon(this.getClass().getResource("Assets/candylandboardRevised.png"));
+            Image image = imageIcon.getImage();
+            Image newimg = image.getScaledInstance(709, 800,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+            imageIcon = new ImageIcon(newimg);  // transform it back
+            //ImageIcon scaledImage = imageIcon.getImageIcon().getScaledInstance(709, 800,Image.SCALE_DEFAULT);
             JLabel board = new JLabel(imageIcon);
             this.add(board);
             //this.setPreferredSize(new Dimension(200, 200));
@@ -422,15 +426,33 @@ public class Board extends JFrame {
                   if(score < 50){
                      if (score == 0){
                         if (drawnCard.equals("purple")) {
-                           score += 5;
-                        } else if (drawnCard.equals("pink")) {
                            score += 1;
-                        } else if (drawnCard.equals("blue")) {
+                        } else if (drawnCard.equals("pink")) {
                            score += 2;
-                        } else if (drawnCard.equals("yellow")) {
+                        } else if (drawnCard.equals("blue")) {
                            score += 3;
-                        } else if (drawnCard.equals("orange")) {
+                        } else if (drawnCard.equals("yellow")) {
                            score += 4;
+                        } else if (drawnCard.equals("orange")) {
+                           score += 5;
+                        } 
+                        //SPECIAL CARDS
+                          else if (drawnCard.equals("goldStar")) {
+                           score += 8;
+                        } else if (drawnCard.equals("redStar")) {
+                           score = score;
+                        } else if (drawnCard.equals("blackStar")) {
+                          score =  1;
+                        } 
+                        // CANDY CARDS
+                          else if (drawnCard.equals("candyCorn")) {
+                           score = 12;
+                        } else if (drawnCard.equals("candyCane")) {
+                           score = 25;
+                        } else if (drawnCard.equals("chocolate")) {
+                           score = 32;
+                        } else if (drawnCard.equals("lollipop")) {
+                           score = 41;
                         } 
 
                      }
@@ -446,7 +468,25 @@ public class Board extends JFrame {
                            score += 3;
                         } else if (drawnCard.equals("orange")) {
                            score += 4;
+                        }
+                        //SPECIAL CARDS
+                          else if (drawnCard.equals("goldStar")) {
+                           score += 8;
+                        } else if (drawnCard.equals("redStar")) {
+                           score = score;
+                        } else if (drawnCard.equals("blackStar")) {
+                          score =  1;
                         } 
+                        // CANDY CARDS
+                          else if (drawnCard.equals("candyCorn")) {
+                           score = 12;
+                        } else if (drawnCard.equals("candyCane")) {
+                           score = 25;
+                        } else if (drawnCard.equals("chocolate")) {
+                           score = 32;
+                        } else if (drawnCard.equals("lollipop")) {
+                           score = 41;
+                        }  
                      } 
                      
                      else if (currColor.equals("pink")) {
@@ -461,7 +501,25 @@ public class Board extends JFrame {
                            score += 2;
                         } else if (drawnCard.equals("orange")) {
                            score += 3;
+                        }
+                        //SPECIAL CARDS
+                          else if (drawnCard.equals("goldStar")) {
+                           score += 8;
+                        } else if (drawnCard.equals("redStar")) {
+                           score = score;
+                        } else if (drawnCard.equals("blackStar")) {
+                          score =  1;
                         } 
+                        // CANDY CARDS
+                          else if (drawnCard.equals("candyCorn")) {
+                           score = 12;
+                        } else if (drawnCard.equals("candyCane")) {
+                           score = 25;
+                        } else if (drawnCard.equals("chocolate")) {
+                           score = 32;
+                        } else if (drawnCard.equals("lollipop")) {
+                           score = 41;
+                        }  
                      } 
                      
                       else if (currColor.equals("blue")) {
@@ -476,7 +534,25 @@ public class Board extends JFrame {
                            score += 1;
                         } else if (drawnCard.equals("orange")) {
                            score += 2;
+                        }
+                        //SPECIAL CARDS
+                          else if (drawnCard.equals("goldStar")) {
+                           score += 8;
+                        } else if (drawnCard.equals("redStar")) {
+                           score = score;
+                        } else if (drawnCard.equals("blackStar")) {
+                          score =  1;
                         } 
+                        // CANDY CARDS
+                          else if (drawnCard.equals("candyCorn")) {
+                           score = 12;
+                        } else if (drawnCard.equals("candyCane")) {
+                           score = 25;
+                        } else if (drawnCard.equals("chocolate")) {
+                           score = 32;
+                        } else if (drawnCard.equals("lollipop")) {
+                           score = 41;
+                        }  
                      } 
                      
                      else if (currColor.equals("yellow")) {
@@ -492,6 +568,24 @@ public class Board extends JFrame {
                         } else if (drawnCard.equals("orange")) {
                            score += 1;
                         } 
+                        //SPECIAL CARDS
+                          else if (drawnCard.equals("goldStar")) {
+                           score += 8;
+                        } else if (drawnCard.equals("redStar")) {
+                           score = score;
+                        } else if (drawnCard.equals("blackStar")) {
+                          score = 1;
+                        } 
+                        // CANDY CARDS
+                          else if (drawnCard.equals("candyCorn")) {
+                           score = 12;
+                        } else if (drawnCard.equals("candyCane")) {
+                           score = 25;
+                        } else if (drawnCard.equals("chocolate")) {
+                           score = 32;
+                        } else if (drawnCard.equals("lollipop")) {
+                           score = 41;
+                        } 
                      } 
                      
                      else if (currColor.equals("orange")) {
@@ -506,11 +600,369 @@ public class Board extends JFrame {
                            score += 4;
                         } else if (drawnCard.equals("orange")) {
                            score += 5;
+                        }
+                        //SPECIAL CARDS
+                          else if (drawnCard.equals("goldStar")) {
+                           score += 8;
+                        } else if (drawnCard.equals("redStar")) {
+                           score = score;
+                        } else if (drawnCard.equals("blackStar")) {
+                          score =  1;
                         } 
-                     } 
+                        // CANDY CARDS
+                          else if (drawnCard.equals("candyCorn")) {
+                           score = 12;
+                        } else if (drawnCard.equals("candyCane")) {
+                           score = 25;
+                        } else if (drawnCard.equals("chocolate")) {
+                           score = 32;
+                        } else if (drawnCard.equals("lollipop")) {
+                           score = 41;
+                        }  
+                     }
+           // NESTED STAR CARDS 
+                     else if (currColor.equals("redStar")) {
+                        if (score == 1 || score == 6 || score == 11 || score == 16 || score == 21 || score == 26 || score == 31 || score == 36 || score == 46){ // if you're on a purple at the time of drawing the redStar card
+                              if (drawnCard.equals("purple")) {
+                                 score += 5;
+                              } else if (drawnCard.equals("pink")) {
+                                 score += 1;
+                              } else if (drawnCard.equals("blue")) {
+                                 score += 2;
+                              } else if (drawnCard.equals("yellow")) {
+                                 score += 3;
+                              } else if (drawnCard.equals("orange")) {
+                                 score += 4;
+                              }
+                        }
+                        else if (score == 2 || score == 7 || score == 17 || score == 22 || score == 27 || score == 37 || score == 42 || score == 47){ // if you're on a pink at the time of drawing the redStar card
+                              if (drawnCard.equals("purple")) {
+                                 score += 4;
+                              } else if (drawnCard.equals("pink")) {
+                                 score += 5;
+                              } else if (drawnCard.equals("blue")) {
+                                 score += 1;
+                              } else if (drawnCard.equals("yellow")) {
+                                 score += 2;
+                              } else if (drawnCard.equals("orange")) {
+                                 score += 3;
+                              }
+                        }
+                        else if (score == 3 || score == 8 || score == 13 || score == 18 || score == 23 || score == 28 || score == 33 || score == 38 || score == 43 || score == 48){ // if you're on a blue at the time of drawing the redStar card
+                              if (drawnCard.equals("purple")) {
+                                 score += 3;
+                              } else if (drawnCard.equals("pink")) {
+                                 score += 4;
+                              } else if (drawnCard.equals("blue")) {
+                                 score += 5;
+                              } else if (drawnCard.equals("yellow")) {
+                                 score += 1;
+                              } else if (drawnCard.equals("orange")) {
+                                 score += 2;
+                              }   
+                        }
+                        else if (score == 4 || score == 9 || score == 14 || score == 19 || score == 24 || score == 29 || score == 34 || score == 39 || score == 44 || score == 49){ // if you're on a yellow at the time of drawing the redStar card
+                              if (drawnCard.equals("purple")) {
+                                 score += 2;
+                              } else if (drawnCard.equals("pink")) {
+                                 score += 3;
+                              } else if (drawnCard.equals("blue")) {
+                                 score += 4;
+                              } else if (drawnCard.equals("yellow")) {
+                                 score += 5;
+                              } else if (drawnCard.equals("orange")) {
+                                 score += 1;
+                              }
+                        }
+                        else if (score == 5 || score == 10 || score == 15 || score == 20 || score == 30 || score == 35 || score == 40 || score == 45 || score == 50){ // if you're on a orange at the time of drawing the redStar card
+                              if (drawnCard.equals("purple")) {
+                                 score += 1;
+                              } else if (drawnCard.equals("pink")) {
+                                 score += 2;
+                              } else if (drawnCard.equals("blue")) {
+                                 score += 3;
+                              } else if (drawnCard.equals("yellow")) {
+                                 score += 4;
+                              } else if (drawnCard.equals("orange")) {
+                                 score += 5;
+                              }
+                        }
+                        
+                        //SPECIAL CARDS
+                        else if (drawnCard.equals("goldStar")) {
+                           score += 8;
+                        } else if (drawnCard.equals("redStar")) {
+                           score = score;
+                        } else if (drawnCard.equals("blackStar")) {
+                          score =  1;
+                        } 
+                        // CANDY CARDS
+                         else if (drawnCard.equals("candyCorn")) {
+                           score = 12;
+                        } else if (drawnCard.equals("candyCane")) {
+                           score = 25;
+                        } else if (drawnCard.equals("chocolate")) {
+                           score = 32;
+                        } else if (drawnCard.equals("lollipop")) {
+                           score = 41;
+                        }  
+                     } // end of RedStar instance
+                     
+                     else if (currColor.equals("goldStar")) {
+                     
+                        /* purple + 8   = yellow
+                           pink   + 8   = orange
+                           blue   + 8   = purple
+                           yellow + 8   = pink 
+                           orange + 8   = blue
+                        */
+                        if (score == 11 || score == 16 || score == 21 || score == 26 || score == 31 || score == 36 || score == 46){ // if you're on a purple due to drawing the goldStar last turn
+                              if (drawnCard.equals("purple")) {
+                                 score += 5;
+                              } else if (drawnCard.equals("pink")) {
+                                 score += 1;
+                              } else if (drawnCard.equals("blue")) {
+                                 score += 2;
+                              } else if (drawnCard.equals("yellow")) {
+                                 score += 3;
+                              } else if (drawnCard.equals("orange")) {
+                                 score += 4;
+                              }
+                        }
+                        else if (score == 17 || score == 22 || score == 27 || score == 37 || score == 42 || score == 47){ // if you're on a pink due to drawing the goldStar last turn
+                              if (drawnCard.equals("purple")) {
+                                 score += 4;
+                              } else if (drawnCard.equals("pink")) {
+                                 score += 5;
+                              } else if (drawnCard.equals("blue")) {
+                                 score += 1;
+                              } else if (drawnCard.equals("yellow")) {
+                                 score += 2;
+                              } else if (drawnCard.equals("orange")) {
+                                 score += 3;
+                              }
+                        }
+                        else if (score == 8 || score == 13 || score == 18 || score == 23 || score == 28 || score == 33 || score == 38 || score == 43 || score == 48){ // if you're on a blue due to drawing the goldStar last turn
+                              if (drawnCard.equals("purple")) {
+                                 score += 3;
+                              } else if (drawnCard.equals("pink")) {
+                                 score += 4;
+                              } else if (drawnCard.equals("blue")) {
+                                 score += 5;
+                              } else if (drawnCard.equals("yellow")) {
+                                 score += 1;
+                              } else if (drawnCard.equals("orange")) {
+                                 score += 2;
+                              }   
+                        }
+                        else if (score == 9 || score == 14 || score == 19 || score == 24 || score == 29 || score == 34 || score == 39 || score == 44 || score == 49){ // if you're on a yellow due to drawing the goldStar last turn
+                              if (drawnCard.equals("purple")) {
+                                 score += 2;
+                              } else if (drawnCard.equals("pink")) {
+                                 score += 3;
+                              } else if (drawnCard.equals("blue")) {
+                                 score += 4;
+                              } else if (drawnCard.equals("yellow")) {
+                                 score += 5;
+                              } else if (drawnCard.equals("orange")) {
+                                 score += 1;
+                              }
+                        }
+                        else if (score == 10 || score == 15 || score == 20 || score == 30 || score == 35 || score == 40 || score == 45 || score == 50){ // if you're on an orange due to drawing the goldStar last turn
+                              if (drawnCard.equals("purple")) {
+                                 score += 1;
+                              } else if (drawnCard.equals("pink")) {
+                                 score += 2;
+                              } else if (drawnCard.equals("blue")) {
+                                 score += 3;
+                              } else if (drawnCard.equals("yellow")) {
+                                 score += 4;
+                              } else if (drawnCard.equals("orange")) {
+                                 score += 5;
+                              }
+                        }
+                        //SPECIAL CARDS
+                          else if (drawnCard.equals("goldStar")) {
+                           score += 8;
+                        } else if (drawnCard.equals("redStar")) {
+                           score = score;
+                        } else if (drawnCard.equals("blackStar")) {
+                          score =  1;
+                        } 
+                        // CANDY CARDS
+                          else if (drawnCard.equals("candyCorn")) {
+                           score = 12;
+                        } else if (drawnCard.equals("candyCane")) {
+                           score = 25;
+                        } else if (drawnCard.equals("chocolate")) {
+                           score = 32;
+                        } else if (drawnCard.equals("lollipop")) {
+                           score = 41;
+                        }  
+                     }
+                     else if (currColor.equals("blackStar")) {
+                     
+                        if (drawnCard.equals("purple")) {
+                           score += 5;
+                        } else if (drawnCard.equals("pink")) {
+                           score += 1;
+                        } else if (drawnCard.equals("blue")) {
+                           score += 2;
+                        } else if (drawnCard.equals("yellow")) {
+                           score += 3;
+                        } else if (drawnCard.equals("orange")) {
+                           score += 4;
+                        }
+                        //SPECIAL CARDS
+                          else if (drawnCard.equals("goldStar")) {
+                           score += 8;
+                        } else if (drawnCard.equals("redStar")) {
+                           score = score;
+                        } else if (drawnCard.equals("blackStar")) {
+                          score =  1;
+                        } 
+                        // CANDY CARDS
+                          else if (drawnCard.equals("candyCorn")) {
+                           score = 12;
+                        } else if (drawnCard.equals("candyCane")) {
+                           score = 25;
+                        } else if (drawnCard.equals("chocolate")) {
+                           score = 32;
+                        } else if (drawnCard.equals("lollipop")) {
+                           score = 41;
+                        }  
+                     }  // end of blackStar instance
+          //NESTED CANDY CARDS          
+                     else if (currColor.equals("chocolate")) {
+                     
+                        if (drawnCard.equals("purple")) {
+                           score += 4;
+                        } else if (drawnCard.equals("pink")) {
+                           score += 5;
+                        } else if (drawnCard.equals("blue")) {
+                           score += 1;
+                        } else if (drawnCard.equals("yellow")) {
+                           score += 2;
+                        } else if (drawnCard.equals("orange")) {
+                           score += 3;
+                        }
+                        //SPECIAL CARDS
+                          else if (drawnCard.equals("goldStar")) {
+                           score += 8;
+                        } else if (drawnCard.equals("redStar")) {
+                           score = score;
+                        } else if (drawnCard.equals("blackStar")) {
+                          score =  1;
+                        } 
+                        // CANDY CARDS
+                          else if (drawnCard.equals("candyCorn")) {
+                           score = 12;
+                        } else if (drawnCard.equals("candyCane")) {
+                           score = 25;
+                        } else if (drawnCard.equals("chocolate")) {
+                           score = 32;
+                        } else if (drawnCard.equals("lollipop")) {
+                           score = 41;
+                        }  
+                     } // end of chocolate instance
+                     else if (currColor.equals("candyCorn")) {
+                     
+                        if (drawnCard.equals("purple")) {
+                           score += 4;
+                        } else if (drawnCard.equals("pink")) {
+                           score += 5;
+                        } else if (drawnCard.equals("blue")) {
+                           score += 1;
+                        } else if (drawnCard.equals("yellow")) {
+                           score += 2;
+                        } else if (drawnCard.equals("orange")) {
+                           score += 3;
+                        }
+                        //SPECIAL CARDS
+                          else if (drawnCard.equals("goldStar")) {
+                           score += 8;
+                        } else if (drawnCard.equals("redStar")) {
+                           score = score;
+                        } else if (drawnCard.equals("blackStar")) {
+                          score =  1;
+                        } 
+                        // CANDY CARDS
+                          else if (drawnCard.equals("candyCorn")) {
+                           score = 12;
+                        } else if (drawnCard.equals("candyCane")) {
+                           score = 25;
+                        } else if (drawnCard.equals("chocolate")) {
+                           score = 32;
+                        } else if (drawnCard.equals("lollipop")) {
+                           score = 41;
+                        }  
+                     } //end of candyCorn instance
+                     else if (currColor.equals("candyCane")) {
+                     
+                        if (drawnCard.equals("purple")) {
+                           score += 1;
+                        } else if (drawnCard.equals("pink")) {
+                           score += 2;
+                        } else if (drawnCard.equals("blue")) {
+                           score += 3;
+                        } else if (drawnCard.equals("yellow")) {
+                           score += 4;
+                        } else if (drawnCard.equals("orange")) {
+                           score += 5;
+                        }
+                        //SPECIAL CARDS
+                          else if (drawnCard.equals("goldStar")) {
+                           score += 8;
+                        } else if (drawnCard.equals("redStar")) {
+                           score = score;
+                        } else if (drawnCard.equals("blackStar")) {
+                          score =  1;
+                        } 
+                        // CANDY CARDS
+                          else if (drawnCard.equals("candyCorn")) {
+                           score = 12;
+                        } else if (drawnCard.equals("candyCane")) {
+                           score = 25;
+                        } else if (drawnCard.equals("chocolate")) {
+                           score = 32;
+                        } else if (drawnCard.equals("lollipop")) {
+                           score = 41;
+                        }  
+                     } // end of candyCane instance
+                     else if (currColor.equals("lollipop")) {
+                     
+                        if (drawnCard.equals("purple")) {
+                           score += 5;
+                        } else if (drawnCard.equals("pink")) {
+                           score += 1;
+                        } else if (drawnCard.equals("blue")) {
+                           score += 2;
+                        } else if (drawnCard.equals("yellow")) {
+                           score += 3;
+                        } else if (drawnCard.equals("orange")) {
+                           score += 4;
+                        }
+                        //SPECIAL CARDS
+                          else if (drawnCard.equals("goldStar")) {
+                           score += 8;
+                        } else if (drawnCard.equals("redStar")) {
+                           score = score;
+                        } else if (drawnCard.equals("blackStar")) {
+                          score =  1;
+                        } 
+                        // CANDY CARDS
+                          else if (drawnCard.equals("candyCorn")) {
+                           score = 12;
+                        } else if (drawnCard.equals("candyCane")) {
+                           score = 25;
+                        } else if (drawnCard.equals("chocolate")) {
+                           score = 32;
+                        } else if (drawnCard.equals("lollipop")) {
+                           score = 41;
+                        }  
+                     } // end of lollipop instance
                  }
                  else {
-                  
                   System.out.println(currentPlayer.getUsername() + " won!");
                   JOptionPane.showMessageDialog(null, currentPlayer.getUsername() + " won!");
                  }

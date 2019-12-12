@@ -5,7 +5,7 @@ More Information can be found in the Menu Bar of the actual program.
 
 ## Explanation of Resources
  - Assets
-    - Contents Folder with all the HTML/CSS of additional project Information such as disclaimers, rules, keys etc (accessed thrrough the Menu Bar)
+    - Contents Folder with all the HTML/CSS of additional project Information such as disclaimers, rules, keys etc (accessed through the Menu Bar)
     - Image Assets (mock)
  - CODE
     - Assets Folder that contains all the icons, images, boards and cards that are actually being used for the program
@@ -16,3 +16,7 @@ More Information can be found in the Menu Bar of the actual program.
       - *User.java* (Methods to store username, set User's score, and issues a player piece)
       - *Server.java* (accepts client connection)
  - README.md (that's this document!)
+
+## GUI Preview
+
+<img src="https://raw.githubusercontent.com/amytan265/Candyland/master/Assets/gui%20preview.png" alt="Screenshot of GUI">
