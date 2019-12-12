@@ -5,6 +5,7 @@ import java.io.*;
 import java.util.*;
 import java.net.*;
 import javax.swing.ImageIcon;
+import javax.swing.border.Border;
 
 /**
   * ISTE 121 - CANDYLAND
@@ -296,24 +297,28 @@ public class Board extends JFrame {
             // JLabel jlHeader = new JLabel ("Users Active:");
             // jlHeader.setFont(new Font("Arial", Font.BOLD, 24));
             // jlHeader.setForeground(Color.GREEN);
+            
+            Border border = BorderFactory.createTitledBorder("Active Users");
+            this.setBorder(border);
+            this.setPreferredSize(new Dimension(400, 200));
        
-            JRadioButton jrb1 = new JRadioButton("Amy");
-            JRadioButton jrb2 = new JRadioButton("Regina");
-            JRadioButton jrb3 = new JRadioButton("Miki");
+            JCheckBox jcb1 = new JCheckBox("Amy");
+            JCheckBox jcb2 = new JCheckBox("Regina");
+            JCheckBox jcb3 = new JCheckBox("Miki");
             
-            jrb1.setFont(new Font("Arial", Font.BOLD, 12));
-            jrb2.setFont(new Font("Arial", Font.BOLD, 12));
-            jrb3.setFont(new Font("Arial", Font.BOLD, 12));
+            jcb1.setFont(new Font("Arial", Font.BOLD, 12));
+            jcb2.setFont(new Font("Arial", Font.BOLD, 12));
+            jcb3.setFont(new Font("Arial", Font.BOLD, 12));
             
-            jrb1.setSelected(true);
-            jrb2.setSelected(true);
-            jrb3.setSelected(true);
+            jcb1.setSelected(true);
+            jcb2.setSelected(true);
+            jcb3.setSelected(true);
             
             
             // this.add(jlHeader);
-            this.add(jrb1);
-            this.add(jrb2);
-            this.add(jrb3);
+            this.add(jcb1);
+            this.add(jcb2);
+            this.add(jcb3);
         
         }
     
