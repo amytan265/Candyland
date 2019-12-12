@@ -14,7 +14,7 @@ import java.util.*;
 public class Server {
     
     // thread safe list of clients
-    Vector<ClientThread> clients = new Vector<ClientThread>();
+    public static Vector<ClientThread> clients = new Vector<ClientThread>();
     
     public static void main(String[] args) {
     
@@ -84,6 +84,19 @@ public class Server {
                         System.out.println("Client Exited");
                         keepGoing = false;
                         
+                    } else if (line.equals("numberOfUsers")) {
+                    
+                        if (clients.size() > 4) {
+                            
+                            out.println("max");
+                            out.flush();
+                            
+                        } else {
+                            
+                            out.println("continue");
+                            out.flush();
+                        }
+                       
                     } else {
                         
                         // iterates through clients to print message, flush

@@ -19,17 +19,31 @@ import javax.swing.border.*;
 public class Board extends JFrame {
 
     private User currentPlayer;
+    
+    private JTextArea jtaMain;
+    private JTextField jtfMsg;
+    private JButton jbSend;
+    
+    private Socket s;
+    private BufferedReader in = null;
+    private PrintWriter out = null;
+    private Vector<User> players = null;
+   
     public int score = 0;
-    // public ImageIcon imageIcon;
     public JLabel cardIcon;
 
-    public Board(User currentPlayer) {
+    public Board(User currentPlayer, Socket s, BufferedReader in, PrintWriter out) {
     
         this.currentPlayer = currentPlayer;
+        this.s = s;
+        this.in = in;
+        this.out = out;
     
         this.setSize(1050, 1000);
         this.setLocationRelativeTo(null);
         this.setTitle("CANDYLAND");
+        
+        new ReadMessages().start();
         
         JMenuBar menu = new JMenuBar();
             JMenu jmFile = new JMenu("File");
@@ -197,40 +211,14 @@ public class Board extends JFrame {
 
    }//end of DraggableComponent class
     
-    class CLChat extends JPanel {
-        
-        private JTextArea jtaMain;
-        private JTextField jtfMsg;
-        private JButton jbSend;
-    
-        BufferedReader in = null;
-        PrintWriter out = null;
-        Socket s;
+     class CLChat extends JPanel {
         
         public CLChat() {
         
-        try {
-        
-                // s = new Socket("129.21.73.119", 16789);
-                s = new Socket("localhost", 16789);
-                in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-                out = new PrintWriter(new OutputStreamWriter(s.getOutputStream()));
-            
-         } catch (IOException ioe) {} 
-           catch(NullPointerException npe){
-               System.out.println("Caught Exception: " + npe.getMessage());
-         }
-           catch(Exception e){
-               System.out.println("Caught Exception.");
-         }
-         finally{   
             this.ChatGUI();
-            new ReadMessages().start();
-         }
-         }
+        }
 
-         
-         public void ChatGUI() {
+        public void ChatGUI() {
 
             this.setLayout(new BorderLayout());
             JPanel jpMain = new JPanel();
@@ -265,29 +253,6 @@ public class Board extends JFrame {
        });
        
        }
-       
-       class ReadMessages extends Thread {
-    
-          String line;
-        
-          // run method
-          public void run() {
-            try {
-                while(true) {
-                    
-                    // reads incoming messages, appends to JTextArea
-                    line = in.readLine();
-                    jtaMain.append(line + "\n");     
-                }
-            } catch (IOException ioe) {}
-              catch(NullPointerException npe){
-               System.out.println("Caught Exception: " + npe.getMessage());
-              }
-              catch(Exception e){
-               System.out.println("Caught Exception.");
-              }
-          }
-        }
     }
     
     class CLActive extends JPanel {
@@ -646,6 +611,29 @@ public class Board extends JFrame {
             
          }
      } // end class MyAdapter
+     
+      class ReadMessages extends Thread {
+
+      String line;
+    
+      // run method
+      public void run() {
+        try {
+            while(true) {
+                
+                // reads incoming messages, appends to JTextArea
+                line = in.readLine();
+                jtaMain.append(line + "\n");     
+            }
+        } catch (IOException ioe) {}
+          catch(NullPointerException npe){
+           System.out.println("Caught Exception: " + npe.getMessage());
+          }
+          catch(Exception e){
+           System.out.println("Caught Exception.");
+          }
+       }
+    }
     
 }
 
