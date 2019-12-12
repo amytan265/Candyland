@@ -300,7 +300,7 @@ public class Board extends JFrame {
             
             Border border = BorderFactory.createTitledBorder("Active Users");
             this.setBorder(border);
-            this.setPreferredSize(new Dimension(400, 200));
+            this.setPreferredSize(new Dimension(350, 200));
        
             JCheckBox jcb1 = new JCheckBox("Amy");
             JCheckBox jcb2 = new JCheckBox("Regina");
@@ -313,7 +313,9 @@ public class Board extends JFrame {
             jcb1.setSelected(true);
             jcb2.setSelected(true);
             jcb3.setSelected(true);
-            
+                      
+            jcb2.setEnabled(false); 
+            jcb3.setEnabled(false); 
             
             // this.add(jlHeader);
             this.add(jcb1);
