@@ -19,4 +19,4 @@ More Information can be found in the Menu Bar of the actual program.
 
 ## GUI Preview
 
-<img src="" alt="Screenshot of GUI">
+<img src="https://raw.githubusercontent.com/amytan265/Candyland/master/Assets/gui%20preview.png" alt="Screenshot of GUI">
