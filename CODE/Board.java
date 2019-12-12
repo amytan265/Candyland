@@ -5,7 +5,6 @@ import java.io.*;
 import java.util.*;
 import java.net.*;
 import javax.swing.ImageIcon;
-import javax.swing.border.Border;
 
 /**
   * ISTE 121 - CANDYLAND
@@ -176,6 +175,8 @@ public class Board extends JFrame {
            int deltaY = e.getYOnScreen() - screenY;
    
            setLocation(myX + deltaX, myY + deltaY);
+           System.out.println("X Position is: " + (myX + deltaX) + "  Y Position is: " + (myY + deltaY));
+
          }
    
          @Override
@@ -297,28 +298,24 @@ public class Board extends JFrame {
             // JLabel jlHeader = new JLabel ("Users Active:");
             // jlHeader.setFont(new Font("Arial", Font.BOLD, 24));
             // jlHeader.setForeground(Color.GREEN);
-            
-            Border border = BorderFactory.createTitledBorder("Active Users");
-            this.setBorder(border);
-            this.setPreferredSize(new Dimension(400, 200));
        
-            JCheckBox jcb1 = new JCheckBox("Amy");
-            JCheckBox jcb2 = new JCheckBox("Regina");
-            JCheckBox jcb3 = new JCheckBox("Miki");
+            JRadioButton jrb1 = new JRadioButton("Amy");
+            JRadioButton jrb2 = new JRadioButton("Regina");
+            JRadioButton jrb3 = new JRadioButton("Miki");
             
-            jcb1.setFont(new Font("Arial", Font.BOLD, 12));
-            jcb2.setFont(new Font("Arial", Font.BOLD, 12));
-            jcb3.setFont(new Font("Arial", Font.BOLD, 12));
+            jrb1.setFont(new Font("Arial", Font.BOLD, 12));
+            jrb2.setFont(new Font("Arial", Font.BOLD, 12));
+            jrb3.setFont(new Font("Arial", Font.BOLD, 12));
             
-            jcb1.setSelected(true);
-            jcb2.setSelected(true);
-            jcb3.setSelected(true);
+            jrb1.setSelected(true);
+            jrb2.setSelected(true);
+            jrb3.setSelected(true);
             
             
             // this.add(jlHeader);
-            this.add(jcb1);
-            this.add(jcb2);
-            this.add(jcb3);
+            this.add(jrb1);
+            this.add(jrb2);
+            this.add(jrb3);
         
         }
     
@@ -524,6 +521,104 @@ public class Board extends JFrame {
               catch(Exception e){
                System.out.println("Caught Exception.");
               }
+               
+               /**
+               switch(currColor){        // Parent switch case
+                  case "purple" :
+                     switch(drawnCard){   //nested switch case
+                        case "purple":
+                           score += 5;
+                           break;
+                        case "pink":
+                           score += 1;
+                           break;
+                        case "blue":
+                           score += 2;
+                           break;
+                        case "yellow":
+                           score += 3;
+                           break;
+                        case "orange":
+                           score += 4;
+                           break;
+                      }
+                  case "pink" :
+                     switch(drawnCard){   //nested switch case
+                        case "purple":
+                           score += 4;
+                           break;
+                        case "pink":
+                           score += 5;
+                           break;
+                        case "blue":
+                           score += 1;
+                           break;
+                        case "yellow":
+                           score += 2;
+                           break;
+                        case "orange":
+                           score += 3;
+                           break;
+                      }
+                  case "blue" :
+                     switch(drawnCard){   //nested switch case
+                        case "purple":
+                           score += 3;
+                           break;
+                        case "pink":
+                           score += 4;
+                           break;
+                        case "blue":
+                           score += 5;
+                           break;
+                        case "yellow":
+                           score += 1;
+                           break;
+                        case "orange":
+                           score += 2;
+                           break;
+                      }
+                  case "yellow" :
+                     switch(drawnCard){   //nested switch case
+                        case "purple":
+                           score += 2;
+                           break;
+                        case "pink":
+                           score += 3;
+                           break;
+                        case "blue":
+                           score += 4;
+                           break;
+                        case "yellow":
+                           score += 5;
+                           break;
+                        case "orange":
+                           score += 1;
+                           break;
+                      }
+                  case "orange" :
+                     switch(drawnCard){   //nested switch case
+                        case "purple":
+                           score += 1;
+                           break;
+                        case "pink":
+                           score += 2;
+                           break;
+                        case "blue":
+                           score += 3;
+                           break;
+                        case "yellow":
+                           score += 4;
+                           break;
+                        case "orange":
+                           score += 5;
+                           break;
+                      }
+               
+               
+               
+               }
+               */
             finally{  
                String cardAsset = new String("Assets/" + drawnCard + ".png");
                cardIcon.setIcon(new ImageIcon(cardAsset));
