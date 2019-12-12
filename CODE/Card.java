@@ -28,28 +28,23 @@ public class Card extends JLabel {
         randomizeColor = this.getRandColor();
         
         if (randomizeColor.equals("purple")) {
-        
-            setIcon(new ImageIcon("Assets/purple.png"));
+
             currentColor = randomizeColor;
             
         } else if (randomizeColor.equals("pink")) {
-        
-            setIcon(new ImageIcon("Assets/pink.png"));
+
             currentColor = randomizeColor;
       
         } else if (randomizeColor.equals("blue")) {
-            
-            setIcon(new ImageIcon("Assets/blue.png"));
+
             currentColor = randomizeColor;
             
         } else if (randomizeColor.equals("yellow")) {
             
-            setIcon(new ImageIcon("Assets/yellow.png"));
             currentColor = randomizeColor;
         
         } else if (randomizeColor.equals("orange")) {
             
-            setIcon(new ImageIcon("Assets/orange.png"));
             currentColor = randomizeColor;
             // randomizeColor = currentColor;
         }

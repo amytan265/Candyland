@@ -19,6 +19,8 @@ public class Board extends JFrame {
 
     private User currentPlayer;
     public int score = 0;
+    // public ImageIcon imageIcon;
+    public JLabel cardIcon;
 
     public Board(User currentPlayer) {
     
@@ -321,10 +323,10 @@ public class Board extends JFrame {
             JPanel jpCard = new JPanel();
             jpCard.setLayout(new GridLayout(2, 1));
             
-            JLabel mockup = new JLabel();
-            mockup.setIcon(new ImageIcon("../Assets/cardmockup.png"));
+            cardIcon = new JLabel();
+            cardIcon.setIcon(new ImageIcon("../Assets/cardmockup.png"));
             
-            jpCard.add(mockup);
+            jpCard.add(cardIcon);
             jpCard.add(jbDraw = new JButton("Draw"));
 
             MyAdapter ma = new MyAdapter();
@@ -487,6 +489,7 @@ public class Board extends JFrame {
                      } 
                  }
                  else {
+                  
                   System.out.println(currentPlayer.getUsername() + " won!");
                   JOptionPane.showMessageDialog(null, currentPlayer.getUsername() + " won!");
                  }
@@ -595,7 +598,9 @@ public class Board extends JFrame {
                
                }
                */
-            finally{   
+            finally{  
+               String cardAsset = new String("Assets/" + drawnCard + ".png");
+               cardIcon.setIcon(new ImageIcon(cardAsset));
                currentPlayer.setScore(score);
                System.out.println(score);
             }
