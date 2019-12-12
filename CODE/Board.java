@@ -298,6 +298,13 @@ public class Board extends JFrame {
             // JLabel jlHeader = new JLabel ("Users Active:");
             // jlHeader.setFont(new Font("Arial", Font.BOLD, 24));
             // jlHeader.setForeground(Color.GREEN);
+<<<<<<< HEAD
+=======
+            
+            Border border = BorderFactory.createTitledBorder("Active Users");
+            this.setBorder(border);
+            this.setPreferredSize(new Dimension(350, 200));
+>>>>>>> 3aaad87f64bf70534c46158d86abe6655de4a262
        
             JRadioButton jrb1 = new JRadioButton("Amy");
             JRadioButton jrb2 = new JRadioButton("Regina");
@@ -307,10 +314,19 @@ public class Board extends JFrame {
             jrb2.setFont(new Font("Arial", Font.BOLD, 12));
             jrb3.setFont(new Font("Arial", Font.BOLD, 12));
             
+<<<<<<< HEAD
             jrb1.setSelected(true);
             jrb2.setSelected(true);
             jrb3.setSelected(true);
             
+=======
+            jcb1.setSelected(true);
+            jcb2.setSelected(true);
+            jcb3.setSelected(true);
+                      
+            jcb2.setEnabled(false); 
+            jcb3.setEnabled(false); 
+>>>>>>> 3aaad87f64bf70534c46158d86abe6655de4a262
             
             // this.add(jlHeader);
             this.add(jrb1);
