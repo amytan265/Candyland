@@ -129,33 +129,48 @@ public class Board extends JFrame {
             this.add(board);
             //this.setPreferredSize(new Dimension(200, 200));
             
+	    //create four pieces, each assigned a different gingerbread
             DraggableComponent one = new DraggableComponent(new ImageIcon("Assets/redgin.png").getImage());
             DraggableComponent two = new DraggableComponent(new ImageIcon("Assets/greengin.png").getImage());
             DraggableComponent three = new DraggableComponent(new ImageIcon("Assets/bluegin.png").getImage());
             DraggableComponent four = new DraggableComponent(new ImageIcon("Assets/yellowgin.png").getImage());
-                                  
-            board.add(one);
-            //board.add(two);
-            //board.add(three);
-            //board.add(four);
             
+	    //add piece to board
+            board.add(one);
+            
+	    //place piece near the start of board
             one.setLocation(0, 480);
-            //two.setLocation(0, 510);
-            //three.setLocation(0,520);
-            //four.setLocation(0, 530);
+
         }
     }
-    
+	
+    /**
+     * extends JPanel 
+     * 
+     * creates draggable pieces 
+     */
+	
     class DraggableComponent extends JPanel {
           
+     //x-coordinate of initial position
      private volatile int screenX = 0;
+	    
+     //y-coordinate of initial position
      private volatile int screenY = 0;
+	    
+     //x-coordinate of new position
      private volatile int myX = 0;
+	    
+     //y-coordinate of new position
      private volatile int myY = 0;
-     
+	    
      private Image img;
 
-
+     /**
+      * @param Image img 
+      * 
+      * sets size of draggable piece 
+      */
      public DraggableComponent(Image img) {
      
         this.img = img;
@@ -166,9 +181,6 @@ public class Board extends JFrame {
         setSize(size);
         setLayout(null);
         setOpaque(false);
-             
-        //setBackground(Color.WHITE);
-        //setSize(25, 25);
           
        
        addMouseListener(new MouseListener() {
@@ -181,7 +193,6 @@ public class Board extends JFrame {
          public void mousePressed(MouseEvent e) {
            screenX = e.getXOnScreen();
            screenY = e.getYOnScreen();
-   
            myX = getX();
            myY = getY();
          }
@@ -204,27 +215,28 @@ public class Board extends JFrame {
          public void mouseDragged(MouseEvent e) {
            int deltaX = e.getXOnScreen() - screenX;
            int deltaY = e.getYOnScreen() - screenY;
-   
            setLocation(myX + deltaX, myY + deltaY);
+           //prints (x,y) of piece (for debugging purposes)
            System.out.println("X Position is: " + (myX + deltaX) + "  Y Position is: " + (myY + deltaY));
 
          }
-   
+         
          @Override
          public void mouseMoved(MouseEvent e) { }
    
        });
      }
      
+     //gets URL of piece 
      public DraggableComponent(String img) {
        this(new ImageIcon(img).getImage());
      }
-   
+     
+     //paints piece on board 
      public void paintComponent(Graphics g) {
        g.drawImage(img, 0, 0, null);
      }
      
-
    }//end of DraggableComponent class
     
      class CLChat extends JPanel {
