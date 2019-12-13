@@ -44,6 +44,13 @@ public class Server {
         } catch (IOException ioe) {}  
     }
     
+    public void broadcastPlayers() {
+    
+        for (ClientThread client : clients) {
+            client.sendPlayers(players);
+        }
+    }
+    
     /** ClientThread (inner class) */
     class ClientThread extends Thread {
         
@@ -68,6 +75,13 @@ public class Server {
             
             } catch (IOException ioe) { }      
         } 
+        
+        public void sendPlayers(Vector<User> currentPlayers) {
+            
+            try {
+                oos.writeObject(currentPlayers);
+            } catch (IOException ioe) { System.out.println(ioe.getMessage()); }
+        }
           
         // run method
         public void run() {
@@ -84,7 +98,7 @@ public class Server {
                         
                         if (readObject.equals("numberOfUsers")) {
                             
-                            if (clients.size() >= 4) {
+                            if (clients.size() > 4) {
                             
                                 oos.writeObject("max");
                                 oos.flush();
@@ -102,18 +116,14 @@ public class Server {
                                 
                                     User readPlayer = (User) readObj;
                                     players.add(readPlayer);
+                                    
+                                    // broadcastPlayers();
                                 }                         
                             }
                             
                         } else if (readObject.equals("getPlayers")) {
                                            
-                           for (User player : players) {
-                                
-                                System.out.println(player.getUsername());   
-                           } 
-                           
-                           oos.writeObject(players);
-                           oos.flush();             
+                           broadcastPlayers();          
                                            
                         } else {
                             
@@ -125,14 +135,8 @@ public class Server {
                         }                        
                     } 
                 }
-            } catch(IOException ioe) {
-               System.out.print("IO Exception: " + ioe);
-            } catch(ClassNotFoundException cnfe) {
-               System.out.println("Class not found exception: " + cnfe.getMessage());
-            }
-             catch(Exception e) {
-               System.out.println("Exception found: " + e.getMessage());
-            }
+            } catch (IOException ioe) {
+            } catch (ClassNotFoundException cnfe) { }
         }
     }
 }

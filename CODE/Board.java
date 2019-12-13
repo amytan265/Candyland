@@ -53,6 +53,11 @@ public class Board extends JFrame {
         
         new ReadMessages().start();
         
+        try {
+            oos.writeObject("getPlayers");
+            oos.flush();
+        } catch (IOException ioe) { System.out.println(ioe.getMessage()); }
+        
         JMenuBar menu = new JMenuBar();
             JMenu jmFile = new JMenu("File");
             JMenuItem jmiExit = new JMenuItem("Exit");
@@ -291,17 +296,23 @@ public class Board extends JFrame {
     
         public CLActive() {
         
-            try {
-            
-                oos.writeObject("getPlayers");
-                oos.flush();
-
+            // try {
+         
                 this.setLayout(new GridLayout(3, 0));
                 
                 Border border = BorderFactory.createTitledBorder("Active Users");
                 this.setBorder(border);
                 this.setPreferredSize(new Dimension(350, 200));
-
+                
+                for (User player : currentPlayers) {
+                    JCheckBox jcbUser = new JCheckBox(player.getUsername());
+                    System.out.println(player.getUsername());
+                    jcbUser.setFont(new Font("Arial", Font.BOLD, 12));
+                    jcbUser.setSelected(true);
+                    this.add(jcbUser);
+                }
+                
+                /*
                 JCheckBox jcb1 = new JCheckBox("Amy");
                 JCheckBox jcb2 = new JCheckBox("Regina");
                 JCheckBox jcb3 = new JCheckBox("Miki");
@@ -324,12 +335,10 @@ public class Board extends JFrame {
                 this.add(jcb1);
                 this.add(jcb2);
                 this.add(jcb3);
+                */
                 
-           } // catch (IOException ioe) { System.out.println(ioe.getMessage()); 
-          // }  catch (ClassNotFoundException cnfe) { System.out.println(cnfe.getMessage());  }
-            catch (IOException ioe) { System.out.println(ioe.getMessage());}
-            catch (Exception e) { System.out.println(e.getMessage()); }
-           //}  catch (ClassNotFoundException cnfe) { System.out.println(cnfe.getMessage());  }
+          //  } catch (IOException ioe) { System.out.println(ioe.getMessage());
+          //  } // catch (ClassNotFoundException cnfe) { System.out.println(cnfe.getMessage());  }
         }
     }
     
@@ -1100,7 +1109,6 @@ public class Board extends JFrame {
                 for (User player : currentPlayers) {
                     System.out.println(player.getUsername());
                 }
-
             } 
           }
         } catch (IOException ioe) { System.out.println(ioe.getMessage()); 
