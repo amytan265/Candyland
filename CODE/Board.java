@@ -239,7 +239,6 @@ public class Board extends JFrame {
             tPane = new JTextPane();
             //JScrollPane jspMain = new JScrollPane(tPane);
             tPane.setMargin(new Insets(5, 5, 5, 5));
-            appendToPane(tPane, "Hello", Color.BLACK);
             jpMain.add(tPane);
             tPane.setFocusable(false);
         
@@ -250,7 +249,7 @@ public class Board extends JFrame {
             jpBottom.add(jtfMsg);
             jpBottom.add(jbSend);
         
-            getContentPane().add(jpMain);
+            //getContentPane().add(jpMain);
             this.add(jpMain, BorderLayout.CENTER);
             this.add(jpBottom, BorderLayout.SOUTH);
             
@@ -260,7 +259,7 @@ public class Board extends JFrame {
             try {
                 String dw = currentPlayer.getUsername() + ": " + jtfMsg.getText();
                 oos.writeObject(dw);
-                appendToPane(tPane, "\n" + dw, Color.BLACK);
+                //appendToPane(tPane, "\n" + dw, Color.black);
                 oos.flush();
                 // System.out.println(currentPlayer.getUsername() + ": " + jtfMsg.getText());
                 jtfMsg.setText("");
@@ -297,8 +296,8 @@ public class Board extends JFrame {
                 this.setBorder(border);
                 this.setPreferredSize(new Dimension(350, 200));
                 
-                oos.writeObject("getPlayers");
-                oos.flush();
+                //oos.writeObject("getPlayers");
+                //oos.flush();
                 
                 /**
                 boolean keepGoing = true;
@@ -345,8 +344,9 @@ public class Board extends JFrame {
                 this.add(jcb2);
                 this.add(jcb3);
                 
-           } catch (IOException ioe) { System.out.println(ioe.getMessage()); 
-           } // catch (ClassNotFoundException cnfe) { System.out.println(cnfe.getMessage());  }
+           } // catch (IOException ioe) { System.out.println(ioe.getMessage()); 
+            catch (Exception e) { System.out.println(e.getMessage()); }
+          // }  catch (ClassNotFoundException cnfe) { System.out.println(cnfe.getMessage());  }
         }
     }
     
@@ -1039,7 +1039,8 @@ public class Board extends JFrame {
                 
                 // reads incoming messages, appends to JTextArea
                 readObject = (String) readObject;
-                jtaMain.append(readObject + "\n");  
+                appendToPane(tPane, "\n" + readObject, Color.black);
+                //jtaMain.append(readObject + "\n");  
             } 
           }
         } catch (IOException ioe) { System.out.println(ioe.getMessage()); 
