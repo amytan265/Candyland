@@ -20,24 +20,29 @@ import javax.swing.text.StyleContext;
   * @author Miki Mian
   * @author Amy Tan
   * @version 1.0, 120219
+  * @version 2.0, 121319
   */
 public class Board extends JFrame {
-
+    
+    
+   // Attributes - to Server
     private User currentPlayer;
     private Vector<User> currentPlayers = new Vector<>();
+    private Socket s;
+    private ObjectInputStream ois = null;
+    private ObjectOutputStream oos = null;
     
+   // Attributes - GUI
     private JTextArea jtaMain;
     private JTextPane tPane;
     private JTextField jtfMsg;
     private JButton jbSend;
     public Color c = Color.black;
-    
-    private Socket s;
-    private ObjectInputStream ois = null;
-    private ObjectOutputStream oos = null;
+    public JLabel cardIcon;    
+
    
-    public int score = 0;
-    public JLabel cardIcon;
+    public int score = 0;  // Global Variable score to be changed in Action Listener
+
 
     public Board(User currentPlayer, Socket s, ObjectInputStream ois, ObjectOutputStream oos) {
     
@@ -110,6 +115,8 @@ public class Board extends JFrame {
         this.add(jpEast, BorderLayout.EAST); 
         */
         
+        
+        //Display GUI - frame modifications
         this.setResizable(false);
         pack();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -268,7 +275,7 @@ public class Board extends JFrame {
                 //appendToPane(tPane, "\n" + dw, Color.black);
                 oos.flush();
                 // System.out.println(currentPlayer.getUsername() + ": " + jtfMsg.getText());
-                jtfMsg.setText("");
+                jtfMsg.setText("");      //blank Text Field - ready for next input
             } catch (IOException ioe) { System.out.println(ioe.getMessage()); }
          }
        });
@@ -277,7 +284,13 @@ public class Board extends JFrame {
        
     }
     
+    /* METHOD - appendToPane
+     * @param JTextPane to be appended on
+     * @param String of text to be appended
+     * @param Color of text
+     */
     public void appendToPane(JTextPane tp, String msg, Color c){
+        // All this code is stylization
         this.c = c;
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
@@ -346,6 +359,7 @@ public class Board extends JFrame {
         private JButton jbDraw;
         
         public CLDraw() {
+            //Grid Layout, located on the lower right of GUI with a LabelIcon of a card and a draw button
         
             JPanel jpCard = new JPanel();
             jpCard.setLayout(new GridLayout(2, 1));
@@ -363,14 +377,16 @@ public class Board extends JFrame {
         } 
     }
     
-    class MyAdapter implements ActionListener {     // You can only have one public class in a file so you don't write public 
+    
+    /** This is an ActionListener class for every single component on the GUI except for the send button on the chat**/
+    class MyAdapter implements ActionListener { 
 
-         Card card = new Card();
+         Card card = new Card();   // for Draw Button
          
          public void actionPerformed(ActionEvent ae){
-            String choice = ae.getActionCommand();
+            String choice = ae.getActionCommand();     //gets Source as String
             
-            if( choice.equals("About") ){
+            if( choice.equals("About") ){     //Menu Item that opens an 'About the Project' page in a browser
                try {
                   File htmlFile = new File("Assets/about.html");
                   Desktop.getDesktop().open(htmlFile); 
@@ -382,7 +398,7 @@ public class Board extends JFrame {
 							   JOptionPane.ERROR_MESSAGE);
                }
             }
-            else if(choice.equals("Rules")){
+            else if(choice.equals("Rules")){    //Menu Item that opens the 'Rules of the game' page in a browser
                try {
                   File htmlFile = new File("Assets/rules.html");
                   Desktop.getDesktop().open(htmlFile); 
@@ -395,7 +411,7 @@ public class Board extends JFrame {
                }
 
             }
-            else if(choice.equals("Key")){
+            else if(choice.equals("Key")){ //Menu Bar Item that opens Keys for what the special cards means
                try {
                   File htmlFile = new File("Assets/key.html");
                   Desktop.getDesktop().open(htmlFile); 
@@ -408,7 +424,7 @@ public class Board extends JFrame {
                }
 
             }
-            else if(choice.equals("Disclaimer")){
+            else if(choice.equals("Disclaimer")){ //Menu Item that opens the 'Disclaimer' page in a browser
                try {
                   File htmlFile = new File("Assets/disclaimer.html");
                   Desktop.getDesktop().open(htmlFile); 
@@ -421,23 +437,25 @@ public class Board extends JFrame {
                }
 
             }
-            else if(choice.equals("Draw")){
+            else if(choice.equals("Draw")){ // This method includes a set of heavily nested if-statments. Switch case @Version 1.0, If-Else @Version 2.0
        
-               // String currColor = card.getCurrentColor();      // calls method which gets current color
-               // String drawnCard = card.getNextColor();
-               
-               // System.out.println(currColor);
-               // System.out.println(drawnCard);
+               // DEBUG    String currColor = card.getCurrentColor();      
+               // DEBUG    String drawnCard = card.getNextColor();
+               // DEBUG    System.out.println(currColor);
+               // DEBUG    System.out.println(drawnCard);
                   
                  try{
-                 if(score < 50){
-                     //The game is still going on draw a card and set the GUI
+                 if(score < 50){       //If the game is still going on 
+                 
+                     //draw a card and set the GUI
                      String currColor = card.getCurrentColor();      // calls method which gets current color
-                     String drawnCard = card.getNextColor();
-                     String cardAsset = new String("Assets/" + drawnCard + ".png");
-                     cardIcon.setIcon(new ImageIcon(cardAsset));
+                     String drawnCard = card.getNextColor();         // calls a method which  gets the next drawn card's color
                      
+                     //sets the card icon to proper color of next Card
+                     String cardAsset = new String("Assets/" + drawnCard + ".png"); 
+                     cardIcon.setIcon(new ImageIcon(cardAsset));  
                      
+                   //If statment for the very first draw
                      if (score == 0 || currColor == null){
                         if (drawnCard.equals("purple")) {
                            score += 1;
@@ -470,8 +488,16 @@ public class Board extends JFrame {
                         } 
 
                      }
+                  /*
+                   
+                     NESTED CASE FORMAT:
+                     If your card from the last turn was one color (parent nest)
+                     and your next Card is whatever color/special, (child nest)
+                     here is how the score distrubution is set. 
+                     Follows this format for like 200 more lines of code
+                   
+                  */
                      else if (currColor.equals("purple")) {
-                     
                         if (drawnCard.equals("purple")) {
                            score += 5;
                         } else if (drawnCard.equals("pink")) {
@@ -635,6 +661,14 @@ public class Board extends JFrame {
                         }  
                      }
            // NESTED STAR CARDS 
+           
+                     /** The star cards are not as simple as the point system for the color cards 
+                         because it has to work no matter where you are on the board, which we keep 
+                         track by your card score not your piece location (or else it'd be easy to cheat)
+                         The board follows a pattern, and knows where the candy pieces are located.
+                         Keep in mind that the code format looks at what your NEXT card is, not how your score
+                         is calculated by what your current card is.
+                     **/
                      else if (currColor.equals("redStar")) {
                         if (score == 1 || score == 6 || score == 11 || score == 16 || score == 21 || score == 26 || score == 31 || score == 36 || score == 46){ // if you're on a purple at the time of drawing the redStar card
                               if (drawnCard.equals("purple")) {
@@ -702,7 +736,7 @@ public class Board extends JFrame {
                               }
                         }
                         
-                        //SPECIAL CARDS
+                        //SPECIAL CARDS (after special card)
                         else if (drawnCard.equals("goldStar")) {
                            score += 8;
                         } else if (drawnCard.equals("redStar")) {
@@ -710,7 +744,7 @@ public class Board extends JFrame {
                         } else if (drawnCard.equals("blackStar")) {
                           score =  1;
                         } 
-                        // CANDY CARDS
+                        // CANDY CARDS (after special card)
                          else if (drawnCard.equals("candyCorn")) {
                            score = 12;
                         } else if (drawnCard.equals("candyCane")) {
@@ -918,7 +952,14 @@ public class Board extends JFrame {
                            score = 41;
                         }  
                      }  // end of blackStar instance
-          //NESTED CANDY CARDS          
+          
+          //NESTED CANDY CARDS 
+          
+                  /** The Candy Cards were slightly easier since it knows where your location is based off the
+                      points you get when you get the card. No matter where you are on the board when you draw
+                      a candy card it bring you to a specific destination.
+                  **/
+          
                      else if (currColor.equals("chocolate")) {
                      
                         if (drawnCard.equals("purple")) {
@@ -1048,16 +1089,19 @@ public class Board extends JFrame {
                         }  
                      } // end of lollipop instance
                      
+                     
+                     //Displays the score after setting it
                      currentPlayer.setScore(score);
                      System.out.println(score);
                      
+                     //Displays what card you pulled in the chat
                      String cardMessage = new String(currentPlayer.getUsername() + " drew a " + card.getCurrentColor() + " card!");
-                     c = Color.red;
+                     c = Color.red;                                // Sets font color of Card Draws on your Side to Red (see
                      oos.writeObject(cardMessage);
                      oos.flush();
        
 
-                     if(score >=50){
+                     if(score >=50){ // this code runs when someone wins! It has to be within the large if block since all this code runs AFTER the draw button is clicked
                             
                         try {
                         
@@ -1073,10 +1117,10 @@ public class Board extends JFrame {
                         // JOptionPane.showMessageDialog(null, currentPlayer.getUsername() + " won!"); 
                      }
                  } else {
-                  System.out.println("Somebody already won the game! Thanks for playing.");
+                  System.out.println("Somebody already won the game! Thanks for playing.");  // this else is for all extraneous solutions
                  }
               }// end try
-              
+             //catch statements
               catch(NullPointerException npe){
                System.out.println("Caught Exception: " + npe.getMessage());
               }
@@ -1088,7 +1132,7 @@ public class Board extends JFrame {
               }
                
             }
-            else if(choice.equals("Exit")){
+            else if(choice.equals("Exit")){  //Exits the program
                System.exit(0);
             }
          }
@@ -1107,7 +1151,7 @@ public class Board extends JFrame {
             
             if (readObject instanceof String) {
                 
-                // reads incoming messages, appends to JTextArea
+                // reads incoming messages, appends to JTextArea  (version 2 - switched from JTextArea to JTextPane)
                 readObject = (String) readObject;
                 appendToPane(tPane, "\n" + readObject, c);
                 c = Color.black;
@@ -1120,13 +1164,6 @@ public class Board extends JFrame {
                 for (User player : currentPlayers) {
                     System.out.println(player.getUsername());
                 }
-                
-            } else if (readObject instanceof Received) {
-                
-                Received rm = (Received) readObject;
-                c = Color.blue;
-                appendToPane(tPane, "\n" + rm, c);
-                System.exit(1);
                 
             } else if (readObject instanceof UserWon) {
             
