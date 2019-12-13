@@ -18,8 +18,8 @@ import java.util.*;
 public class Candyland {
     
     private Socket s;
-    private BufferedReader in = null;
-    private PrintWriter out = null;
+    private ObjectInputStream ois = null;
+    private ObjectOutputStream oos = null;
     
     public static void main(String[] args) {
     
@@ -31,34 +31,39 @@ public class Candyland {
         try {
         
             s = new Socket("localhost", 16789);
-            in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-            out = new PrintWriter(new OutputStreamWriter(s.getOutputStream()));
+            ois = new ObjectInputStream(s.getInputStream());
+            oos = new ObjectOutputStream(s.getOutputStream());
             
             // writes validation line to server, flush
-            out.println("numberOfUsers");
-            out.flush();
+            oos.writeObject("numberOfUsers");
+            oos.flush();
           
             // reads line from server
-            String line = in.readLine();
+            Object readObject = ois.readObject();
             
             // reads "max" or "continue" (server checks client size)
-            if (line.equals("max")) {
+            if (readObject instanceof String) {
                 
-                JOptionPane.showMessageDialog(null, "Max players for Candyland is 4. Please try again later \u2639");
-                System.exit(0);
-            
-            } else if (line.equals("continue")) {
+                    if (readObject.equals("max")) {
+                    
+                    JOptionPane.showMessageDialog(null, "Max players for Candyland is 4. Please try again later.");
+                    System.exit(0);
                 
-                // player's username
-                String username = JOptionPane.showInputDialog(null, "Enter Username:","Enter Username", JOptionPane.QUESTION_MESSAGE); 
-                
-                // creates new player 
-                User player = new User(username);
-                
-                // creates board with player, socket, bufferedreader, printwriter
-                Board candyBoard = new Board(player, s, in, out);
-            }
-              
-        } catch (IOException ioe) { System.out.println(ioe.getMessage()); }
+                    } else if (readObject.equals("continue")) {
+                    
+                        // player's username
+                        String username = JOptionPane.showInputDialog(null, "Enter Username:","Enter Username", JOptionPane.QUESTION_MESSAGE); 
+                                     
+                        // creates new player 
+                        User player = new User(username);
+                        oos.writeObject(player);
+                        oos.flush();
+                       
+                        // creates board with player, socket, bufferedreader, printwriter
+                        Board candyBoard = new Board(player, s, ois, oos);
+                    }
+             }
+        } catch (IOException ioe) { System.out.println(ioe.getMessage()); 
+        } catch (ClassNotFoundException cnfe) { System.out.println(cnfe.getMessage()); }
     }
 }

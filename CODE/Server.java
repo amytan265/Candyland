@@ -16,6 +16,8 @@ public class Server {
     // thread safe list of clients
     public static Vector<ClientThread> clients = new Vector<ClientThread>();
     
+    Vector<User> players = new Vector<>();
+    
     public static void main(String[] args) {
     
         new Server();
@@ -42,12 +44,19 @@ public class Server {
         } catch (IOException ioe) {}  
     }
     
+    public void broadcastPlayers() {
+    
+        for (ClientThread client : clients) {
+            client.sendPlayers(players);
+        }
+    }
+    
     /** ClientThread (inner class) */
     class ClientThread extends Thread {
         
         // attributes
-        BufferedReader in;
-        PrintWriter out;
+        ObjectInputStream ois;
+        ObjectOutputStream oos;
         Socket cs;
         
         boolean keepGoing = true;
@@ -60,53 +69,84 @@ public class Server {
             
             try  {
                 
-                // instantiates bufferedreader, printwriter for clientthread, start run method
-                in = new BufferedReader(new InputStreamReader(cs.getInputStream()));
-                out = new PrintWriter(new OutputStreamWriter(cs.getOutputStream()));
+                oos = new ObjectOutputStream(cs.getOutputStream());
+                ois = new ObjectInputStream(cs.getInputStream());
                 this.start();
             
             } catch (IOException ioe) { }      
         } 
+        
+        public void sendPlayers(Vector<User> currentPlayers) {
+            
+            try {
+                oos.writeObject(currentPlayers);
+            } catch (IOException ioe) { System.out.println(ioe.getMessage()); }
+        }
           
         // run method
         public void run() {
         
-            String line;
+            Object readObject = null;
+            
             try {
                 while(keepGoing) {
                     
                     // reads line 
-                    line = in.readLine();
+                    readObject = ois.readObject();
                     
-                    if (line.equals("Exit")) {
+                    if (readObject instanceof String) {
                         
-                        // recieves exit message, prints that user has exited
-                        System.out.println("Client Exited");
-                        keepGoing = false;
-                        
-                    } else if (line.equals("numberOfUsers")) {
-                    
-                        if (clients.size() > 4) {
+                        if (readObject.equals("numberOfUsers")) {
                             
-                            out.println("max");
-                            out.flush();
+                            if (clients.size() > 4) {
                             
+                                oos.writeObject("max");
+                                oos.flush();
+                            
+                                keepGoing = false;
+                                
+                            } else if (clients.size() <= 4) {
+                                
+                                oos.writeObject("continue");
+                                oos.flush();
+                                
+                                Object readObj = ois.readObject(); 
+                                
+                                if (readObj instanceof User) {
+                                
+                                    User readPlayer = (User) readObj;
+                                    players.add(readPlayer);
+                                    
+                                    // broadcastPlayers();
+                                }                         
+                            }
+                            
+                        } else if (readObject.equals("getPlayers")) {
+                                           
+                           broadcastPlayers();          
+                                           
                         } else {
                             
-                            out.println("continue");
-                            out.flush();
-                        }
-                       
-                    } else {
+                            for (int i = 0; i < clients.size(); i++) {
+                            
+                                clients.get(i).oos.writeObject(readObject);
+                                clients.get(i).oos.flush();
+                            }              
+                        }   
+                                             
+                    } else if (readObject instanceof UserWon) {
                         
-                        // iterates through clients to print message, flush
+                        UserWon uw = (UserWon) readObject;
+                        
                         for (int i = 0; i < clients.size(); i++) {
-                            clients.get(i).out.println(line);
-                            clients.get(i).out.flush();
+                        
+                            clients.get(i).oos.writeObject(uw);
+                            clients.get(i).oos.flush();
                         }
                     }
                 }
-            } catch (IOException ioe) {}
+            } catch (IOException ioe) {
+            } catch (ClassNotFoundException cnfe) { }
         }
     }
 }

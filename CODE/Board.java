@@ -7,6 +7,11 @@ import java.net.*;
 import javax.swing.ImageIcon;
 import javax.swing.border.*;
 
+import javax.swing.text.AttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+
 /**
   * ISTE 121 - CANDYLAND
   * Board class.
@@ -19,31 +24,38 @@ import javax.swing.border.*;
 public class Board extends JFrame {
 
     private User currentPlayer;
+    private Vector<User> currentPlayers = new Vector<>();
     
     private JTextArea jtaMain;
+    private JTextPane tPane;
     private JTextField jtfMsg;
     private JButton jbSend;
+    public Color c = Color.black;
     
     private Socket s;
-    private BufferedReader in = null;
-    private PrintWriter out = null;
-    private Vector<User> players = null;
+    private ObjectInputStream ois = null;
+    private ObjectOutputStream oos = null;
    
     public int score = 0;
     public JLabel cardIcon;
 
-    public Board(User currentPlayer, Socket s, BufferedReader in, PrintWriter out) {
+    public Board(User currentPlayer, Socket s, ObjectInputStream ois, ObjectOutputStream oos) {
     
         this.currentPlayer = currentPlayer;
         this.s = s;
-        this.in = in;
-        this.out = out;
-    
+        this.ois = ois;
+        this.oos = oos;
+        
         this.setSize(1050, 1000);
         this.setLocationRelativeTo(null);
         this.setTitle("CANDYLAND");
         
         new ReadMessages().start();
+        
+        try {
+            oos.writeObject("getPlayers");
+            oos.flush();
+        } catch (IOException ioe) { System.out.println(ioe.getMessage()); }
         
         JMenuBar menu = new JMenuBar();
             JMenu jmFile = new JMenu("File");
@@ -123,14 +135,14 @@ public class Board extends JFrame {
             DraggableComponent four = new DraggableComponent(new ImageIcon("Assets/yellowgin.png").getImage());
                                   
             board.add(one);
-            board.add(two);
-            board.add(three);
-            board.add(four);
+            //board.add(two);
+            //board.add(three);
+            //board.add(four);
             
-            one.setLocation(0, 500);
-            two.setLocation(0, 510);
-            three.setLocation(0,520);
-            four.setLocation(0, 530);
+            one.setLocation(0, 480);
+            //two.setLocation(0, 510);
+            //three.setLocation(0,520);
+            //four.setLocation(0, 530);
         }
     }
     
@@ -227,79 +239,106 @@ public class Board extends JFrame {
             this.setLayout(new BorderLayout());
             JPanel jpMain = new JPanel();
             jpMain.setLayout(new BorderLayout());
-            jtaMain = new JTextArea(10, 30);
-            jtaMain.setEditable(false);
-            JScrollPane jspMain = new JScrollPane(jtaMain);
+            //jtaMain = new JTextArea(10, 30);
+            //jtaMain.setEditable(false);
+            tPane = new JTextPane();
+            JScrollPane jspMain = new JScrollPane(tPane);
+            tPane.setMargin(new Insets(5, 5, 5, 5));
             jpMain.add(jspMain);
+            tPane.setFocusable(false);
         
             JPanel jpBottom = new JPanel();
             jpBottom.setLayout(new FlowLayout());
             jtfMsg = new JTextField(20);
             jbSend = new JButton("Send");
-            MyAdapter ma = new MyAdapter();
-            jbSend.addActionListener(ma);
             jpBottom.add(jtfMsg);
             jpBottom.add(jbSend);
         
-            jpMain.add(jtaMain);
+            //getContentPane().add(jpMain);
             this.add(jpMain, BorderLayout.CENTER);
             this.add(jpBottom, BorderLayout.SOUTH);
             
          
          jbSend.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent ae) {
-            out.println(currentPlayer.getUsername() + ": " + jtfMsg.getText());
-            System.out.println(currentPlayer.getUsername() + ": " + jtfMsg.getText());
-            out.flush();
-            jtfMsg.setText("");
-            
+            try {
+                String dw = currentPlayer.getUsername() + ": " + jtfMsg.getText();
+                c = Color.black;
+                oos.writeObject(dw);
+                //appendToPane(tPane, "\n" + dw, Color.black);
+                oos.flush();
+                // System.out.println(currentPlayer.getUsername() + ": " + jtfMsg.getText());
+                jtfMsg.setText("");
+            } catch (IOException ioe) { System.out.println(ioe.getMessage()); }
          }
        });
        
        }
+       
+    }
+    
+    public void appendToPane(JTextPane tp, String msg, Color c){
+        this.c = c;
+        StyleContext sc = StyleContext.getDefaultStyleContext();
+        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+
+        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+
+        int len = tp.getDocument().getLength();
+        tp.setCaretPosition(len);
+        tp.setCharacterAttributes(aset, false);
+        tp.replaceSelection(msg);
     }
     
     class CLActive extends JPanel {
     
         public CLActive() {
         
-            this.setLayout(new GridLayout(3, 0));
-            
-            // JLabel jlHeader = new JLabel ("Users Active:");
-            // jlHeader.setFont(new Font("Arial", Font.BOLD, 24));
-            // jlHeader.setForeground(Color.GREEN);
-
-            
-            Border border = BorderFactory.createTitledBorder("Active Users");
-            this.setBorder(border);
-            this.setPreferredSize(new Dimension(350, 200));
-       
-            JCheckBox jcb1 = new JCheckBox("Amy");
-            JCheckBox jcb2 = new JCheckBox("Regina");
-            JCheckBox jcb3 = new JCheckBox("Miki");
-            
-            jcb1.setFont(new Font("Arial", Font.BOLD, 12));
-            jcb2.setFont(new Font("Arial", Font.BOLD, 12));
-            jcb3.setFont(new Font("Arial", Font.BOLD, 12));
-            
-            jcb1.setSelected(true);
-            jcb2.setSelected(true);
-            jcb3.setSelected(true);
-            
-            jcb1.setSelected(true);
-            jcb2.setSelected(true);
-            jcb3.setSelected(true);
-                      
-            jcb2.setEnabled(false); 
-            jcb3.setEnabled(false); 
-            
-            // this.add(jlHeader);
-            this.add(jcb1);
-            this.add(jcb2);
-            this.add(jcb3);
-        
+            // try {
+         
+                this.setLayout(new GridLayout(3, 0));
+                
+                Border border = BorderFactory.createTitledBorder("Active Users");
+                this.setBorder(border);
+                this.setPreferredSize(new Dimension(350, 200));
+                
+                for (User player : currentPlayers) {
+                    JCheckBox jcbUser = new JCheckBox(player.getUsername());
+                    System.out.println(player.getUsername());
+                    jcbUser.setFont(new Font("Arial", Font.BOLD, 12));
+                    jcbUser.setSelected(true);
+                    this.add(jcbUser);
+                }
+                
+                /*
+                JCheckBox jcb1 = new JCheckBox("Amy");
+                JCheckBox jcb2 = new JCheckBox("Regina");
+                JCheckBox jcb3 = new JCheckBox("Miki");
+                
+                jcb1.setFont(new Font("Arial", Font.BOLD, 12));
+                jcb2.setFont(new Font("Arial", Font.BOLD, 12));
+                jcb3.setFont(new Font("Arial", Font.BOLD, 12));
+                
+                jcb1.setSelected(true);
+                jcb2.setSelected(true);
+                jcb3.setSelected(true);
+                
+                jcb1.setSelected(true);
+                jcb2.setSelected(true);
+                jcb3.setSelected(true);
+                          
+                jcb2.setEnabled(false); 
+                jcb3.setEnabled(false); 
+                
+                this.add(jcb1);
+                this.add(jcb2);
+                this.add(jcb3);
+                */
+                
+          //  } catch (IOException ioe) { System.out.println(ioe.getMessage());
+          //  } // catch (ClassNotFoundException cnfe) { System.out.println(cnfe.getMessage());  }
         }
-    
     }
     
     class CLDraw extends JPanel {
@@ -324,7 +363,6 @@ public class Board extends JFrame {
         } 
     }
     
-    
     class MyAdapter implements ActionListener {     // You can only have one public class in a file so you don't write public 
 
          Card card = new Card();
@@ -333,9 +371,6 @@ public class Board extends JFrame {
             String choice = ae.getActionCommand();
             
             if( choice.equals("About") ){
-//             JFrame about = new JFrame("About");
-//             about.setSize(400, 400);
-//             about.setLocationRelativeTo(null);
                try {
                   File htmlFile = new File("Assets/about.html");
                   Desktop.getDesktop().open(htmlFile); 
@@ -346,11 +381,6 @@ public class Board extends JFrame {
 						JOptionPane.showMessageDialog(null, msg, title,
 							   JOptionPane.ERROR_MESSAGE);
                }
-
-//                JTextArea textareaAbout = new JTextArea(htmlFile);
-//                textareaAbout.setEnabled(false);
-//                about.add(textareaAbout);
-//             about.setVisible(true); 
             }
             else if(choice.equals("Rules")){
                try {
@@ -408,7 +438,7 @@ public class Board extends JFrame {
                      cardIcon.setIcon(new ImageIcon(cardAsset));
                      
                      
-                     if (score == 0){
+                     if (score == 0 || currColor == null){
                         if (drawnCard.equals("purple")) {
                            score += 1;
                         } else if (drawnCard.equals("pink")) {
@@ -1021,17 +1051,37 @@ public class Board extends JFrame {
                      currentPlayer.setScore(score);
                      System.out.println(score);
                      
+                     String cardMessage = new String(currentPlayer.getUsername() + " drew a " + card.getCurrentColor() + " card!");
+                     c = Color.red;
+                     oos.writeObject(cardMessage);
+                     oos.flush();
+       
+
                      if(score >=50){
-                        System.out.println(currentPlayer.getUsername() + " won!");
-                        JOptionPane.showMessageDialog(null, currentPlayer.getUsername() + " won!"); 
+                            
+                        try {
+                        
+                            // oos.writeObject(currentPlayer.getUsername() + " won!");
+                            // oos.flush();
+                            
+                            oos.writeObject(new UserWon(currentPlayer));
+                            oos.flush();
+                            
+                        } catch (IOException ioe) { System.out.println(ioe.getMessage()); }
+                    
+                        // System.out.println(currentPlayer.getUsername() + " won!");
+                        // JOptionPane.showMessageDialog(null, currentPlayer.getUsername() + " won!"); 
                      }
-                 }
-                 else {
-                  System.out.println("It appears that you have already won the game! Thanks for playing.");
+                 } else {
+                  System.out.println("Somebody already won the game! Thanks for playing.");
                  }
               }// end try
+              
               catch(NullPointerException npe){
                System.out.println("Caught Exception: " + npe.getMessage());
+              }
+              catch(IOException ioe){
+               System.out.println("Caught Exception: " + ioe.getMessage());
               }
               catch(Exception e){
                System.out.println("Caught Exception.");
@@ -1041,39 +1091,48 @@ public class Board extends JFrame {
             else if(choice.equals("Exit")){
                System.exit(0);
             }
-             
-            
          }
-     } // end class MyAdapter
-     
-      class ReadMessages extends Thread {
+     } // end class MyAdapter  
+       
+     class ReadMessages extends Thread {
 
-      String line;
+     Object readObject = null;
     
       // run method
       public void run() {
         try {
             while(true) {
+            
+            readObject = ois.readObject();
+            
+            if (readObject instanceof String) {
                 
                 // reads incoming messages, appends to JTextArea
-                line = in.readLine();
-                jtaMain.append(line + "\n");     
+                readObject = (String) readObject;
+                appendToPane(tPane, "\n" + readObject, c);
+                //jtaMain.append(readObject + "\n");   
+        
+            } else if (readObject instanceof Vector) {
+                
+                currentPlayers = (Vector) readObject;
+                
+                for (User player : currentPlayers) {
+                    System.out.println(player.getUsername());
+                }
+                
+            } else if (readObject instanceof UserWon) {
+            
+                UserWon uw = (UserWon) readObject;
+                
+                JOptionPane.showMessageDialog(null, uw); 
+                
+                System.exit(0);
             }
-        } catch (IOException ioe) {}
-          catch(NullPointerException npe){
-           System.out.println("Caught Exception: " + npe.getMessage());
           }
-          catch(Exception e){
-           System.out.println("Caught Exception.");
-          }
-       }
-    }
-    
+        } catch (IOException ioe) { System.out.println(ioe.getMessage()); 
+        } catch (NullPointerException npe) { System.out.println(npe.getMessage());
+        } catch (Exception e) { System.out.println(e.getMessage());
+        }
+      }
+    } 
 }
-
-
-
-
-
-
-
