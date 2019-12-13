@@ -13,17 +13,16 @@ import java.util.*;
   */
 public class Server {
     
-    // thread safe list of clients
     public static Vector<ClientThread> clients = new Vector<ClientThread>();
-    
     Vector<User> players = new Vector<>();
     
+    /** Server main method. */
     public static void main(String[] args) {
     
         new Server();
     }
     
-    /** ChatServer constructor */
+    /** Server constructor */
     public Server() {
    
         try {
@@ -44,6 +43,7 @@ public class Server {
         } catch (IOException ioe) {}  
     }
     
+    /** broadCoast Players method. */
     public void broadcastPlayers() {
     
         for (ClientThread client : clients) {
@@ -69,6 +69,7 @@ public class Server {
             
             try  {
                 
+                // instantiates ObjectInputStream, ObjectOutputStream
                 oos = new ObjectOutputStream(cs.getOutputStream());
                 ois = new ObjectInputStream(cs.getInputStream());
                 this.start();
@@ -76,6 +77,11 @@ public class Server {
             } catch (IOException ioe) { }      
         } 
         
+        /** 
+          * sendPlayer method. 
+          *
+          * @param currentPlayer - Vector<User>
+          */
         public void sendPlayers(Vector<User> currentPlayers) {
             
             try {
@@ -83,7 +89,9 @@ public class Server {
             } catch (IOException ioe) { System.out.println(ioe.getMessage()); }
         }
           
-        // run method
+        /** 
+          * (ClientThread) run method.
+          */
         public void run() {
         
             Object readObject = null;
@@ -91,7 +99,6 @@ public class Server {
             try {
                 while(keepGoing) {
                     
-                    // reads line 
                     readObject = ois.readObject();
                     
                     if (readObject instanceof String) {
@@ -116,7 +123,6 @@ public class Server {
                                 
                                     User readPlayer = (User) readObj;
                                     players.add(readPlayer);
-                                    
                                     // broadcastPlayers();
                                 }                         
                             }
@@ -145,6 +151,7 @@ public class Server {
                         }
                     }
                 }
+                
             } catch (IOException ioe) {
             } catch (ClassNotFoundException cnfe) { }
         }

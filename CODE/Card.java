@@ -7,13 +7,24 @@ import java.net.*;
 import java.util.Random;
 import javax.swing.ImageIcon;
 
+/**
+  * ISTE 121 - CANDYLAND
+  * Card class.
+  *
+  * @author Regina Bass
+  * @author Miki Mian
+  * @author Amy Tan
+  * @version 1.0, 120219
+  */
 public class Card extends JLabel {
-
-    Vector<String> colors = new Vector<String>();
-
+    
+    // attributes
+    private Vector<String> colors = new Vector<String>();
+    
     private String currentColor = null;
     private String randomizeColor = null;
 
+    /** Card constructor */
     public Card() {
       //adds colors into pool of cards
         colors.add("purple");
@@ -39,6 +50,11 @@ public class Card extends JLabel {
         colors.add("chocolate");
     }
 
+    /** 
+      * getNextColor method.
+      *
+      * @return currentColor - String
+      */
     public String getNextColor() {
         
         randomizeColor = this.getRandColor();
@@ -62,7 +78,7 @@ public class Card extends JLabel {
         } else if (randomizeColor.equals("orange")) {
             
             currentColor = randomizeColor;
-            // randomizeColor = currentColor;
+
         } else if (randomizeColor.equals("lollipop")) {
             
             currentColor = randomizeColor;
@@ -96,11 +112,21 @@ public class Card extends JLabel {
         return currentColor;
     }
     
+    /**
+      * getCurrentColor accessor.
+      *
+      * @return currentColor - String
+      */
     public String getCurrentColor() {
     
         return currentColor;
     }
     
+    /**
+      * getRandColor accessor.
+      *
+      * @return randomized color for card.
+      */
     public String getRandColor() {
         
         Random rand = new Random();
