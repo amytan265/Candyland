@@ -295,8 +295,6 @@ public class Board extends JFrame {
     
         public CLActive() {
         
-            // try {
-         
                 this.setLayout(new GridLayout(3, 0));
                 
                 Border border = BorderFactory.createTitledBorder("Active Users");
@@ -305,39 +303,10 @@ public class Board extends JFrame {
                 
                 for (User player : currentPlayers) {
                     JCheckBox jcbUser = new JCheckBox(player.getUsername());
-                    System.out.println(player.getUsername());
                     jcbUser.setFont(new Font("Arial", Font.BOLD, 12));
                     jcbUser.setSelected(true);
                     this.add(jcbUser);
                 }
-                
-                /*
-                JCheckBox jcb1 = new JCheckBox("Amy");
-                JCheckBox jcb2 = new JCheckBox("Regina");
-                JCheckBox jcb3 = new JCheckBox("Miki");
-                
-                jcb1.setFont(new Font("Arial", Font.BOLD, 12));
-                jcb2.setFont(new Font("Arial", Font.BOLD, 12));
-                jcb3.setFont(new Font("Arial", Font.BOLD, 12));
-                
-                jcb1.setSelected(true);
-                jcb2.setSelected(true);
-                jcb3.setSelected(true);
-                
-                jcb1.setSelected(true);
-                jcb2.setSelected(true);
-                jcb3.setSelected(true);
-                          
-                jcb2.setEnabled(false); 
-                jcb3.setEnabled(false); 
-                
-                this.add(jcb1);
-                this.add(jcb2);
-                this.add(jcb3);
-                */
-                
-          //  } catch (IOException ioe) { System.out.println(ioe.getMessage());
-          //  } // catch (ClassNotFoundException cnfe) { System.out.println(cnfe.getMessage());  }
         }
     }
     
@@ -1116,11 +1085,7 @@ public class Board extends JFrame {
             } else if (readObject instanceof Vector) {
                 
                 currentPlayers = (Vector) readObject;
-                
-                for (User player : currentPlayers) {
-                    System.out.println(player.getUsername());
-                }
-                
+       
             } else if (readObject instanceof UserWon) {
             
                 UserWon uw = (UserWon) readObject;
