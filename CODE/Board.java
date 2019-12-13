@@ -1050,17 +1050,13 @@ public class Board extends JFrame {
                      
                      currentPlayer.setScore(score);
                      System.out.println(score);
-<<<<<<< HEAD
-                                          
-=======
                      
-
                      String cardMessage = new String(currentPlayer.getUsername() + " drew a " + card.getCurrentColor() + " card!");
                      c = Color.red;
                      oos.writeObject(cardMessage);
                      oos.flush();
        
->>>>>>> 2930cdf02c2fdce24a876f363287328f7a82e539
+
                      if(score >=50){
                             
                         try {
