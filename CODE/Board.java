@@ -21,6 +21,8 @@ public class Board extends JFrame {
     private User currentPlayer;
     private Vector<User> currentPlayers = new Vector<>();
     
+    private JLabel board;
+    
     private JTextArea jtaMain;
     private JTextField jtfMsg;
     private JButton jbSend;
@@ -118,7 +120,7 @@ public class Board extends JFrame {
             Image newimg = image.getScaledInstance(709, 800,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
             imageIcon = new ImageIcon(newimg);  // transform it back
             //ImageIcon scaledImage = imageIcon.getImageIcon().getScaledInstance(709, 800,Image.SCALE_DEFAULT);
-            JLabel board = new JLabel(imageIcon);
+            board = new JLabel(imageIcon);
             this.add(board);
             //this.setPreferredSize(new Dimension(200, 200));
             
@@ -131,96 +133,31 @@ public class Board extends JFrame {
             board.add(two);
             board.add(three);
             board.add(four);
-            
+              
             one.setLocation(0, 500);
             two.setLocation(0, 510);
             three.setLocation(0,520);
             four.setLocation(0, 530);
+            
+                try {
+                
+                    oos.writeObject(one);
+                    oos.flush();
+                    
+                    oos.writeObject(two);
+                    oos.flush();
+                    
+                    oos.writeObject(three);
+                    oos.flush();
+                    
+                    oos.writeObject(four);
+                    oos.flush();
+                    
+                } catch (IOException ioe) { System.out.println(ioe.getMessage()); }
         }
     }
     
-    class DraggableComponent extends JPanel {
-          
-     private volatile int screenX = 0;
-     private volatile int screenY = 0;
-     private volatile int myX = 0;
-     private volatile int myY = 0;
-     
-     private Image img;
-
-
-     public DraggableComponent(Image img) {
-     
-        this.img = img;
-        Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
-        setPreferredSize(size);
-        setMinimumSize(size);
-        setMaximumSize(size);
-        setSize(size);
-        setLayout(null);
-        setOpaque(false);
-             
-        //setBackground(Color.WHITE);
-        //setSize(25, 25);
-          
-       
-       addMouseListener(new MouseListener() {
-   
-         @Override
-         public void mouseClicked(MouseEvent e) { }
-         
-         //record cursor's position on screen when mouse is pressed 
-         @Override
-         public void mousePressed(MouseEvent e) {
-           screenX = e.getXOnScreen();
-           screenY = e.getYOnScreen();
-   
-           myX = getX();
-           myY = getY();
-         }
-   
-         @Override
-         public void mouseReleased(MouseEvent e) { }
-   
-         @Override
-         public void mouseEntered(MouseEvent e) { }
-   
-         @Override
-         public void mouseExited(MouseEvent e) { }
-   
-       });
-       
-       //calculate distance between old mouse position and new mouse position 
-       addMouseMotionListener(new MouseMotionListener() {
-   
-         @Override
-         public void mouseDragged(MouseEvent e) {
-           int deltaX = e.getXOnScreen() - screenX;
-           int deltaY = e.getYOnScreen() - screenY;
-   
-           setLocation(myX + deltaX, myY + deltaY);
-           System.out.println("X Position is: " + (myX + deltaX) + "  Y Position is: " + (myY + deltaY));
-
-         }
-   
-         @Override
-         public void mouseMoved(MouseEvent e) { }
-   
-       });
-     }
-     
-     public DraggableComponent(String img) {
-       this(new ImageIcon(img).getImage());
-     }
-   
-     public void paintComponent(Graphics g) {
-       g.drawImage(img, 0, 0, null);
-     }
-     
-
-   }//end of DraggableComponent class
-    
-     class CLChat extends JPanel {
+    class CLChat extends JPanel {
         
         public CLChat() {
         
@@ -1012,8 +949,12 @@ public class Board extends JFrame {
                 for (User player : currentPlayers) {
                     System.out.println(player.getUsername());
                 }
-
-            } 
+                
+            } else if (readObject instanceof DraggableComponent) {
+            
+                DraggableComponent dc = (DraggableComponent) readObject;
+                board.add(dc);
+            }
           }
         } catch (IOException ioe) { System.out.println(ioe.getMessage()); 
         } catch (NullPointerException npe) { System.out.println(npe.getMessage());

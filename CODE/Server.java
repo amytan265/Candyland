@@ -132,8 +132,18 @@ public class Server {
                                 clients.get(i).oos.writeObject(readObject);
                                 clients.get(i).oos.flush();
                             }              
-                        }                        
-                    } 
+                        }     
+                                           
+                    } else if (readObject instanceof DraggableComponent) {
+                    
+                        DraggableComponent dc = (DraggableComponent) readObject;
+                        
+                        for (int i = 0; i < clients.size(); i++) {
+                        
+                            clients.get(i).oos.writeObject(dc);
+                            clients.get(i).oos.flush();
+                        }
+                    }
                 }
             } catch (IOException ioe) {
             } catch (ClassNotFoundException cnfe) { }
