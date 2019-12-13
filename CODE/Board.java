@@ -1061,13 +1061,19 @@ public class Board extends JFrame {
                System.exit(0);
             }
          }
+         
      } // end class MyAdapter  
        
+     /** 
+       * ReadMessages class.
+       *
+       * -> Reads incoming objects from server.
+       */
      class ReadMessages extends Thread {
 
      Object readObject = null;
     
-      // run method
+      /** ReadMessages run method */
       public void run() {
         try {
             while(true) {
@@ -1075,12 +1081,10 @@ public class Board extends JFrame {
             readObject = ois.readObject();
             
             if (readObject instanceof String) {
-                
-                // reads incoming messages, appends to JTextArea
+
                 readObject = (String) readObject;
                 appendToPane(tPane, "\n" + readObject, c);
                 c = Color.black;
-                //jtaMain.append(readObject + "\n");   
         
             } else if (readObject instanceof Vector) {
                 
@@ -1088,10 +1092,8 @@ public class Board extends JFrame {
        
             } else if (readObject instanceof UserWon) {
             
-                UserWon uw = (UserWon) readObject;
-                
-                JOptionPane.showMessageDialog(null, uw); 
-                
+                UserWon uw = (UserWon) readObject;         
+                JOptionPane.showMessageDialog(null, uw);         
                 System.exit(0);
             }
           }
@@ -1100,7 +1102,7 @@ public class Board extends JFrame {
         } catch (Exception e) { System.out.println(e.getMessage());
         }
       }
-    } 
+    } // end class ReadMessages
         
 
 }

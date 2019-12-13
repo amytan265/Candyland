@@ -7,7 +7,7 @@ import java.util.*;
 
 /**
   * ISTE 121 - CANDYLAND
-  * Candyland.java
+  * Candyland class (main).
   *
   * @author Regina Bass
   * @author Miki Mian
