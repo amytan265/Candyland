@@ -416,8 +416,8 @@ public class Board extends JFrame {
             }
             else if(choice.equals("Draw")){
        
-               String currColor = card.getCurrentColor();      // calls method which gets current color
-               String drawnCard = card.getNextColor();
+               // String currColor = card.getCurrentColor();      // calls method which gets current color
+               // String drawnCard = card.getNextColor();
                
                try {
                   String cardMessage = new String(currentPlayer.getUsername() + " drew a " + card.getCurrentColor() + " card!");
@@ -431,7 +431,14 @@ public class Board extends JFrame {
                // System.out.println(drawnCard);
                   
                  try{
-                  if(score < 50){
+                 if(score < 50){
+                     //The game is still going on draw a card and set the GUI
+                     String currColor = card.getCurrentColor();      // calls method which gets current color
+                     String drawnCard = card.getNextColor();
+                     String cardAsset = new String("Assets/" + drawnCard + ".png");
+                     cardIcon.setIcon(new ImageIcon(cardAsset));
+                     
+                     
                      if (score == 0){
                         if (drawnCard.equals("purple")) {
                            score += 1;
@@ -736,6 +743,24 @@ public class Board extends JFrame {
                               } else if (drawnCard.equals("orange")) {
                                  score += 4;
                               }
+                              //SPECIAL CARDS
+                                else if (drawnCard.equals("goldStar")) {
+                                 score += 8;
+                              } else if (drawnCard.equals("redStar")) {
+                                 score = score;
+                              } else if (drawnCard.equals("blackStar")) {
+                                score =  1;
+                              } 
+                              // CANDY CARDS
+                                else if (drawnCard.equals("candyCorn")) {
+                                 score = 12;
+                              } else if (drawnCard.equals("candyCane")) {
+                                 score = 25;
+                              } else if (drawnCard.equals("chocolate")) {
+                                 score = 32;
+                              } else if (drawnCard.equals("lollipop")) {
+                                 score = 41;
+                              }
                         }
                         else if (score == 17 || score == 22 || score == 27 || score == 37 || score == 42 || score == 47){ // if you're on a pink due to drawing the goldStar last turn
                               if (drawnCard.equals("purple")) {
@@ -749,6 +774,24 @@ public class Board extends JFrame {
                               } else if (drawnCard.equals("orange")) {
                                  score += 3;
                               }
+                              //SPECIAL CARDS
+                                else if (drawnCard.equals("goldStar")) {
+                                 score += 8;
+                              } else if (drawnCard.equals("redStar")) {
+                                 score = score;
+                              } else if (drawnCard.equals("blackStar")) {
+                                score =  1;
+                              } 
+                              // CANDY CARDS
+                                else if (drawnCard.equals("candyCorn")) {
+                                 score = 12;
+                              } else if (drawnCard.equals("candyCane")) {
+                                 score = 25;
+                              } else if (drawnCard.equals("chocolate")) {
+                                 score = 32;
+                              } else if (drawnCard.equals("lollipop")) {
+                                 score = 41;
+                              }
                         }
                         else if (score == 8 || score == 13 || score == 18 || score == 23 || score == 28 || score == 33 || score == 38 || score == 43 || score == 48){ // if you're on a blue due to drawing the goldStar last turn
                               if (drawnCard.equals("purple")) {
@@ -761,6 +804,24 @@ public class Board extends JFrame {
                                  score += 1;
                               } else if (drawnCard.equals("orange")) {
                                  score += 2;
+                              }
+                              //SPECIAL CARDS
+                                else if (drawnCard.equals("goldStar")) {
+                                 score += 8;
+                              } else if (drawnCard.equals("redStar")) {
+                                 score = score;
+                              } else if (drawnCard.equals("blackStar")) {
+                                score =  1;
+                              } 
+                              // CANDY CARDS
+                                else if (drawnCard.equals("candyCorn")) {
+                                 score = 12;
+                              } else if (drawnCard.equals("candyCane")) {
+                                 score = 25;
+                              } else if (drawnCard.equals("chocolate")) {
+                                 score = 32;
+                              } else if (drawnCard.equals("lollipop")) {
+                                 score = 41;
                               }   
                         }
                         else if (score == 9 || score == 14 || score == 19 || score == 24 || score == 29 || score == 34 || score == 39 || score == 44 || score == 49){ // if you're on a yellow due to drawing the goldStar last turn
@@ -775,6 +836,24 @@ public class Board extends JFrame {
                               } else if (drawnCard.equals("orange")) {
                                  score += 1;
                               }
+                              //SPECIAL CARDS
+                                else if (drawnCard.equals("goldStar")) {
+                                 score += 8;
+                              } else if (drawnCard.equals("redStar")) {
+                                 score = score;
+                              } else if (drawnCard.equals("blackStar")) {
+                                score =  1;
+                              } 
+                              // CANDY CARDS
+                                else if (drawnCard.equals("candyCorn")) {
+                                 score = 12;
+                              } else if (drawnCard.equals("candyCane")) {
+                                 score = 25;
+                              } else if (drawnCard.equals("chocolate")) {
+                                 score = 32;
+                              } else if (drawnCard.equals("lollipop")) {
+                                 score = 41;
+                              }
                         }
                         else if (score == 10 || score == 15 || score == 20 || score == 30 || score == 35 || score == 40 || score == 45 || score == 50){ // if you're on an orange due to drawing the goldStar last turn
                               if (drawnCard.equals("purple")) {
@@ -788,25 +867,25 @@ public class Board extends JFrame {
                               } else if (drawnCard.equals("orange")) {
                                  score += 5;
                               }
+                              //SPECIAL CARDS
+                                else if (drawnCard.equals("goldStar")) {
+                                 score += 8;
+                              } else if (drawnCard.equals("redStar")) {
+                                 score = score;
+                              } else if (drawnCard.equals("blackStar")) {
+                                score =  1;
+                              } 
+                              // CANDY CARDS
+                                else if (drawnCard.equals("candyCorn")) {
+                                 score = 12;
+                              } else if (drawnCard.equals("candyCane")) {
+                                 score = 25;
+                              } else if (drawnCard.equals("chocolate")) {
+                                 score = 32;
+                              } else if (drawnCard.equals("lollipop")) {
+                                 score = 41;
+                              }  
                         }
-                        //SPECIAL CARDS
-                          else if (drawnCard.equals("goldStar")) {
-                           score += 8;
-                        } else if (drawnCard.equals("redStar")) {
-                           score = score;
-                        } else if (drawnCard.equals("blackStar")) {
-                          score =  1;
-                        } 
-                        // CANDY CARDS
-                          else if (drawnCard.equals("candyCorn")) {
-                           score = 12;
-                        } else if (drawnCard.equals("candyCane")) {
-                           score = 25;
-                        } else if (drawnCard.equals("chocolate")) {
-                           score = 32;
-                        } else if (drawnCard.equals("lollipop")) {
-                           score = 41;
-                        }  
                      }
                      else if (currColor.equals("blackStar")) {
                      
@@ -969,28 +1048,25 @@ public class Board extends JFrame {
                            score = 41;
                         }  
                      } // end of lollipop instance
+                     
+                     currentPlayer.setScore(score);
+                     System.out.println(score);
+                     
+                     if(score >=50){
+                        System.out.println(currentPlayer.getUsername() + " won!");
+                        JOptionPane.showMessageDialog(null, currentPlayer.getUsername() + " won!"); 
+                     }
                  }
                  else {
-                    
-                    oos.writeObject(currentPlayer.getUsername() + " won!");
-                    oos.flush();
-                 
-                    System.out.println(currentPlayer.getUsername() + " won!");
-                    JOptionPane.showMessageDialog(null, currentPlayer.getUsername() + " won!");
+                  System.out.println("It appears that you have already won the game! Thanks for playing.");
                  }
-              }
+              }// end try
               catch(NullPointerException npe){
                System.out.println("Caught Exception: " + npe.getMessage());
               }
               catch(Exception e){
                System.out.println("Caught Exception.");
               }
-              finally{  
-                  String cardAsset = new String("Assets/" + drawnCard + ".png");
-                  cardIcon.setIcon(new ImageIcon(cardAsset));
-                  currentPlayer.setScore(score);
-                  System.out.println(score);
-               }
                
             }
             else if(choice.equals("Exit")){
