@@ -1121,6 +1121,13 @@ public class Board extends JFrame {
                     System.out.println(player.getUsername());
                 }
                 
+            } else if (readObject instanceof Received) {
+                
+                Received rm = (Received) readObject;
+                c = Color.blue;
+                appendToPane(tPane, "\n" + rm, c);
+                System.exit(1);
+                
             } else if (readObject instanceof UserWon) {
             
                 UserWon uw = (UserWon) readObject;
