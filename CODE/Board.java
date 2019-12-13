@@ -31,6 +31,7 @@ public class Board extends JFrame {
     private JTextPane tPane;
     private JTextField jtfMsg;
     private JButton jbSend;
+    public Color c = Color.black;
     
     private Socket s;
     private ObjectInputStream ois = null;
@@ -258,6 +259,7 @@ public class Board extends JFrame {
          public void actionPerformed(ActionEvent ae) {
             try {
                 String dw = currentPlayer.getUsername() + ": " + jtfMsg.getText();
+                c = Color.black;
                 oos.writeObject(dw);
                 //appendToPane(tPane, "\n" + dw, Color.black);
                 oos.flush();
@@ -272,6 +274,7 @@ public class Board extends JFrame {
     }
     
     public void appendToPane(JTextPane tp, String msg, Color c){
+        this.c = c;
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
 
@@ -446,7 +449,8 @@ public class Board extends JFrame {
                
                try {
                   String cardMessage = new String(currentPlayer.getUsername() + " drew a " + card.getCurrentColor() + " card!");
-                  appendToPane(tPane, "\n" + cardMessage, Color.RED);
+                  //appendToPane(tPane, "\n" + cardMessage, Color.RED);
+                  c = Color.red;
                   oos.writeObject(cardMessage);
                   oos.flush();
                
@@ -1039,7 +1043,7 @@ public class Board extends JFrame {
                 
                 // reads incoming messages, appends to JTextArea
                 readObject = (String) readObject;
-                appendToPane(tPane, "\n" + readObject, Color.black);
+                appendToPane(tPane, "\n" + readObject, c);
                 //jtaMain.append(readObject + "\n");  
             } 
           }
