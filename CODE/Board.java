@@ -428,14 +428,6 @@ public class Board extends JFrame {
                // String currColor = card.getCurrentColor();      // calls method which gets current color
                // String drawnCard = card.getNextColor();
                
-               try {
-                  String cardMessage = new String(currentPlayer.getUsername() + " drew a " + card.getCurrentColor() + " card!");
-                  c = Color.red;
-                  oos.writeObject(cardMessage);
-                  oos.flush();
-               
-               } catch (IOException ioe) { }
-               
                // System.out.println(currColor);
                // System.out.println(drawnCard);
                   
@@ -448,7 +440,7 @@ public class Board extends JFrame {
                      cardIcon.setIcon(new ImageIcon(cardAsset));
                      
                      
-                     if (score == 0){
+                     if (score == 0 || currColor == null){
                         if (drawnCard.equals("purple")) {
                            score += 1;
                         } else if (drawnCard.equals("pink")) {
@@ -1061,6 +1053,12 @@ public class Board extends JFrame {
                      currentPlayer.setScore(score);
                      System.out.println(score);
                      
+
+                     String cardMessage = new String(currentPlayer.getUsername() + " drew a " + card.getCurrentColor() + " card!");
+                     c = Color.red;
+                     oos.writeObject(cardMessage);
+                     oos.flush();
+       
                      if(score >=50){
                         System.out.println(currentPlayer.getUsername() + " won!");
                         JOptionPane.showMessageDialog(null, currentPlayer.getUsername() + " won!"); 
@@ -1070,8 +1068,12 @@ public class Board extends JFrame {
                   System.out.println("It appears that you have already won the game! Thanks for playing.");
                  }
               }// end try
+              
               catch(NullPointerException npe){
                System.out.println("Caught Exception: " + npe.getMessage());
+              }
+              catch(IOException ioe){
+               System.out.println("Caught Exception: " + ioe.getMessage());
               }
               catch(Exception e){
                System.out.println("Caught Exception.");
