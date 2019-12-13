@@ -15,12 +15,21 @@ public class Card extends JLabel {
     private String randomizeColor = null;
 
     public Card() {
-    
+      //adds colors into pool of cards
         colors.add("purple");
         colors.add("pink");
         colors.add("blue");
         colors.add("yellow");
         colors.add("orange");
+        
+       //2nd set of color cards are added so that there is a higher liklihood to draw these cards
+        colors.add("purple");
+        colors.add("pink");
+        colors.add("blue");
+        colors.add("yellow");
+        colors.add("orange");
+        
+        //special cards and candy cards are added
         colors.add("blackStar");
         colors.add("redStar");
         colors.add("goldStar");

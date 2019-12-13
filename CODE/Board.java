@@ -393,14 +393,21 @@ public class Board extends JFrame {
             }
             else if(choice.equals("Draw")){
        
-               String currColor = card.getCurrentColor();      // calls method which gets current color
-               String drawnCard = card.getNextColor();
+               // String currColor = card.getCurrentColor();      // calls method which gets current color
+               // String drawnCard = card.getNextColor();
                
                // System.out.println(currColor);
                // System.out.println(drawnCard);
                   
                  try{
-                  if(score < 50){
+                 if(score < 50){
+                     //The game is still going on draw a card and set the GUI
+                     String currColor = card.getCurrentColor();      // calls method which gets current color
+                     String drawnCard = card.getNextColor();
+                     String cardAsset = new String("Assets/" + drawnCard + ".png");
+                     cardIcon.setIcon(new ImageIcon(cardAsset));
+                     
+                     
                      if (score == 0){
                         if (drawnCard.equals("purple")) {
                            score += 1;
@@ -1010,24 +1017,25 @@ public class Board extends JFrame {
                            score = 41;
                         }  
                      } // end of lollipop instance
+                     
+                     currentPlayer.setScore(score);
+                     System.out.println(score);
+                     
+                     if(score >=50){
+                        System.out.println(currentPlayer.getUsername() + " won!");
+                        JOptionPane.showMessageDialog(null, currentPlayer.getUsername() + " won!"); 
+                     }
                  }
                  else {
-                  System.out.println(currentPlayer.getUsername() + " won!");
-                  JOptionPane.showMessageDialog(null, currentPlayer.getUsername() + " won!");
+                  System.out.println("It appears that you have already won the game! Thanks for playing.");
                  }
-              }
+              }// end try
               catch(NullPointerException npe){
                System.out.println("Caught Exception: " + npe.getMessage());
               }
               catch(Exception e){
                System.out.println("Caught Exception.");
               }
-              finally{  
-                  String cardAsset = new String("Assets/" + drawnCard + ".png");
-                  cardIcon.setIcon(new ImageIcon(cardAsset));
-                  currentPlayer.setScore(score);
-                  System.out.println(score);
-               }
                
             }
             else if(choice.equals("Exit")){
