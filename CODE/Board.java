@@ -139,6 +139,7 @@ public class Board extends JFrame {
             three.setLocation(0,520);
             four.setLocation(0, 530);
             
+            while (true) {
                 try {
                 
                     oos.writeObject(one);
@@ -154,6 +155,7 @@ public class Board extends JFrame {
                     oos.flush();
                     
                 } catch (IOException ioe) { System.out.println(ioe.getMessage()); }
+           }
         }
     }
     

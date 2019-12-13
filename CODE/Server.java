@@ -136,12 +136,14 @@ public class Server {
                                            
                     } else if (readObject instanceof DraggableComponent) {
                     
-                        DraggableComponent dc = (DraggableComponent) readObject;
-                        
-                        for (int i = 0; i < clients.size(); i++) {
-                        
-                            clients.get(i).oos.writeObject(dc);
-                            clients.get(i).oos.flush();
+                        while (true) {
+                            DraggableComponent dc = (DraggableComponent) readObject;
+                            
+                            for (int i = 0; i < clients.size(); i++) {
+                            
+                                clients.get(i).oos.writeObject(dc);
+                                clients.get(i).oos.flush();
+                            }
                         }
                     }
                 }
