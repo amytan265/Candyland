@@ -7,6 +7,12 @@ import java.net.*;
 import javax.swing.ImageIcon;
 import javax.swing.border.*;
 
+
+import javax.swing.text.AttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+
 /**
   * ISTE 121 - CANDYLAND
   * Board class.
@@ -22,6 +28,7 @@ public class Board extends JFrame {
     private Vector<User> players;
     
     private JTextArea jtaMain;
+    private JTextPane tPane;
     private JTextField jtfMsg;
     private JButton jbSend;
     
@@ -227,21 +234,23 @@ public class Board extends JFrame {
             this.setLayout(new BorderLayout());
             JPanel jpMain = new JPanel();
             jpMain.setLayout(new BorderLayout());
-            jtaMain = new JTextArea(10, 30);
-            jtaMain.setEditable(false);
-            JScrollPane jspMain = new JScrollPane(jtaMain);
-            jpMain.add(jspMain);
+            //jtaMain = new JTextArea(10, 30);
+            //jtaMain.setEditable(false);
+            tPane = new JTextPane();
+            //JScrollPane jspMain = new JScrollPane(tPane);
+            tPane.setMargin(new Insets(5, 5, 5, 5));
+            appendToPane(tPane, "Hello", Color.BLACK);
+            jpMain.add(tPane);
+            tPane.setFocusable(false);
         
             JPanel jpBottom = new JPanel();
             jpBottom.setLayout(new FlowLayout());
             jtfMsg = new JTextField(20);
             jbSend = new JButton("Send");
-            MyAdapter ma = new MyAdapter();
-            jbSend.addActionListener(ma);
             jpBottom.add(jtfMsg);
             jpBottom.add(jbSend);
         
-            jpMain.add(jtaMain);
+            getContentPane().add(jpMain);
             this.add(jpMain, BorderLayout.CENTER);
             this.add(jpBottom, BorderLayout.SOUTH);
             
@@ -249,7 +258,9 @@ public class Board extends JFrame {
          jbSend.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent ae) {
             try {
-                oos.writeObject(currentPlayer.getUsername() + ": " + jtfMsg.getText());
+                String dw = currentPlayer.getUsername() + ": " + jtfMsg.getText();
+                oos.writeObject(dw);
+                appendToPane(tPane, "\n" + dw, Color.BLACK);
                 oos.flush();
                 // System.out.println(currentPlayer.getUsername() + ": " + jtfMsg.getText());
                 jtfMsg.setText("");
@@ -258,6 +269,20 @@ public class Board extends JFrame {
        });
        
        }
+       
+    }
+    
+    public void appendToPane(JTextPane tp, String msg, Color c){
+        StyleContext sc = StyleContext.getDefaultStyleContext();
+        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+
+        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+
+        int len = tp.getDocument().getLength();
+        tp.setCaretPosition(len);
+        tp.setCharacterAttributes(aset, false);
+        tp.replaceSelection(msg);
     }
     
     class CLActive extends JPanel {
@@ -420,8 +445,9 @@ public class Board extends JFrame {
                String drawnCard = card.getNextColor();
                
                try {
-               
-                  oos.writeObject(currentPlayer.getUsername() + " drew a " + card.getCurrentColor() + " card!");
+                  String cardMessage = new String(currentPlayer.getUsername() + " drew a " + card.getCurrentColor() + " card!");
+                  appendToPane(tPane, "\n" + cardMessage, Color.RED);
+                  oos.writeObject(cardMessage);
                   oos.flush();
                
                } catch (IOException ioe) { }

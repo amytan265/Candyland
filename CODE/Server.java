@@ -84,7 +84,7 @@ public class Server {
                         
                         if (readObject.equals("numberOfUsers")) {
                             
-                            if (clients.size() > 4) {
+                            if (clients.size() >= 4) {
                             
                                 oos.writeObject("max");
                                 oos.flush();
@@ -98,13 +98,6 @@ public class Server {
                                 players.add(readPlayer);
                             }
 
-                        } else if (readObject.equals("getPlayers")) {
-                           
-                           /**
-                           oos.writeObject(players);
-                           oos.flush();
-                           */
-                           
                         } else {
                             
                             for (int i = 0; i < clients.size(); i++) {
@@ -115,8 +108,14 @@ public class Server {
                         }                       
                     } 
                 }
-            } catch (IOException ioe) {
-            } catch (ClassNotFoundException cnfe) { }
+            } catch(IOException ioe) {
+               System.out.print("IO Exception: " + ioe);
+            } catch(ClassNotFoundException cnfe) {
+               System.out.println("Class not found exception: " + cnfe.getMessage());
+            }
+             catch(Exception e) {
+               System.out.println("Exception found: " + e.getMessage());
+            }
         }
     }
 }
