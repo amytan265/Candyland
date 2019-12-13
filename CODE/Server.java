@@ -16,7 +16,7 @@ public class Server {
     // thread safe list of clients
     public static Vector<ClientThread> clients = new Vector<ClientThread>();
     
-    Vector<User> players = new Vector<User>();
+    Vector<User> players = new Vector<>();
     
     public static void main(String[] args) {
     
@@ -106,13 +106,15 @@ public class Server {
                             }
                             
                         } else if (readObject.equals("getPlayers")) {
-                            
-                            for (User player : players) {
+                                           
+                           for (User player : players) {
                                 
-                                oos.writeObject(player.getUsername());
-                                oos.flush();
-                            }
-                        
+                                System.out.println(player.getUsername());   
+                           } 
+                           
+                           oos.writeObject(players);
+                           oos.flush();             
+                                           
                         } else {
                             
                             for (int i = 0; i < clients.size(); i++) {

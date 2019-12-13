@@ -19,7 +19,7 @@ import javax.swing.border.*;
 public class Board extends JFrame {
 
     private User currentPlayer;
-    private Vector<User> players;
+    private Vector<User> currentPlayers = new Vector<>();
     
     private JTextArea jtaMain;
     private JTextField jtfMsg;
@@ -268,7 +268,7 @@ public class Board extends JFrame {
             
                 oos.writeObject("getPlayers");
                 oos.flush();
-                     
+
                 this.setLayout(new GridLayout(3, 0));
                 
                 Border border = BorderFactory.createTitledBorder("Active Users");
@@ -298,8 +298,8 @@ public class Board extends JFrame {
                 this.add(jcb2);
                 this.add(jcb3);
                 
-           } catch (IOException ioe) { System.out.println(ioe.getMessage()); }
-           // } catch (ClassNotFoundException cnfe) { System.out.println(cnfe.getMessage());  }
+           } catch (IOException ioe) { System.out.println(ioe.getMessage());
+           } // catch (ClassNotFoundException cnfe) { System.out.println(cnfe.getMessage());  }
         }
     }
     
@@ -992,6 +992,15 @@ public class Board extends JFrame {
                 // reads incoming messages, appends to JTextArea
                 readObject = (String) readObject;
                 jtaMain.append(readObject +  "\n");  
+        
+            } else if (readObject instanceof Vector) {
+                
+                currentPlayers = (Vector) readObject;
+                
+                for (User player : currentPlayers) {
+                    System.out.println(player.getUsername());
+                }
+
             } 
           }
         } catch (IOException ioe) { System.out.println(ioe.getMessage()); 
