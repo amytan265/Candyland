@@ -136,33 +136,48 @@ public class Board extends JFrame {
             this.add(board);
             //this.setPreferredSize(new Dimension(200, 200));
             
+	    //create four pieces, each assigned a different gingerbread
             DraggableComponent one = new DraggableComponent(new ImageIcon("Assets/redgin.png").getImage());
             DraggableComponent two = new DraggableComponent(new ImageIcon("Assets/greengin.png").getImage());
             DraggableComponent three = new DraggableComponent(new ImageIcon("Assets/bluegin.png").getImage());
             DraggableComponent four = new DraggableComponent(new ImageIcon("Assets/yellowgin.png").getImage());
-                                  
-            board.add(one);
-            //board.add(two);
-            //board.add(three);
-            //board.add(four);
             
+	    //add piece to board
+            board.add(one);
+            
+	    //place piece near the start of board
             one.setLocation(0, 480);
-            //two.setLocation(0, 510);
-            //three.setLocation(0,520);
-            //four.setLocation(0, 530);
+
         }
     }
-    
+	
+    /**
+     * extends JPanel 
+     * 
+     * creates draggable pieces 
+     */
+	
     class DraggableComponent extends JPanel {
           
+     //x-coordinate of initial position
      private volatile int screenX = 0;
+	    
+     //y-coordinate of initial position
      private volatile int screenY = 0;
+	    
+     //x-coordinate of new position
      private volatile int myX = 0;
+	    
+     //y-coordinate of new position
      private volatile int myY = 0;
-     
+	    
      private Image img;
 
-
+     /**
+      * @param Image img 
+      * 
+      * sets size of draggable piece 
+      */
      public DraggableComponent(Image img) {
      
         this.img = img;
@@ -173,9 +188,6 @@ public class Board extends JFrame {
         setSize(size);
         setLayout(null);
         setOpaque(false);
-             
-        //setBackground(Color.WHITE);
-        //setSize(25, 25);
           
        
        addMouseListener(new MouseListener() {
@@ -188,7 +200,6 @@ public class Board extends JFrame {
          public void mousePressed(MouseEvent e) {
            screenX = e.getXOnScreen();
            screenY = e.getYOnScreen();
-   
            myX = getX();
            myY = getY();
          }
@@ -211,27 +222,28 @@ public class Board extends JFrame {
          public void mouseDragged(MouseEvent e) {
            int deltaX = e.getXOnScreen() - screenX;
            int deltaY = e.getYOnScreen() - screenY;
-   
            setLocation(myX + deltaX, myY + deltaY);
+           //prints (x,y) of piece (for debugging purposes)
            System.out.println("X Position is: " + (myX + deltaX) + "  Y Position is: " + (myY + deltaY));
 
          }
-   
+         
          @Override
          public void mouseMoved(MouseEvent e) { }
    
        });
      }
      
+     //gets URL of piece 
      public DraggableComponent(String img) {
        this(new ImageIcon(img).getImage());
      }
-   
+     
+     //paints piece on board 
      public void paintComponent(Graphics g) {
        g.drawImage(img, 0, 0, null);
      }
      
-
    }//end of DraggableComponent class
     
      class CLChat extends JPanel {
@@ -308,8 +320,6 @@ public class Board extends JFrame {
     
         public CLActive() {
         
-            // try {
-         
                 this.setLayout(new GridLayout(3, 0));
                 
                 Border border = BorderFactory.createTitledBorder("Active Users");
@@ -318,39 +328,10 @@ public class Board extends JFrame {
                 
                 for (User player : currentPlayers) {
                     JCheckBox jcbUser = new JCheckBox(player.getUsername());
-                    System.out.println(player.getUsername());
                     jcbUser.setFont(new Font("Arial", Font.BOLD, 12));
                     jcbUser.setSelected(true);
                     this.add(jcbUser);
                 }
-                
-                /*
-                JCheckBox jcb1 = new JCheckBox("Amy");
-                JCheckBox jcb2 = new JCheckBox("Regina");
-                JCheckBox jcb3 = new JCheckBox("Miki");
-                
-                jcb1.setFont(new Font("Arial", Font.BOLD, 12));
-                jcb2.setFont(new Font("Arial", Font.BOLD, 12));
-                jcb3.setFont(new Font("Arial", Font.BOLD, 12));
-                
-                jcb1.setSelected(true);
-                jcb2.setSelected(true);
-                jcb3.setSelected(true);
-                
-                jcb1.setSelected(true);
-                jcb2.setSelected(true);
-                jcb3.setSelected(true);
-                          
-                jcb2.setEnabled(false); 
-                jcb3.setEnabled(false); 
-                
-                this.add(jcb1);
-                this.add(jcb2);
-                this.add(jcb3);
-                */
-                
-          //  } catch (IOException ioe) { System.out.println(ioe.getMessage());
-          //  } // catch (ClassNotFoundException cnfe) { System.out.println(cnfe.getMessage());  }
         }
     }
     
@@ -1136,13 +1117,19 @@ public class Board extends JFrame {
                System.exit(0);
             }
          }
+         
      } // end class MyAdapter  
        
+     /** 
+       * ReadMessages class.
+       *
+       * -> Reads incoming objects from server.
+       */
      class ReadMessages extends Thread {
 
      Object readObject = null;
     
-      // run method
+      /** ReadMessages run method */
       public void run() {
         try {
             while(true) {
@@ -1150,27 +1137,24 @@ public class Board extends JFrame {
             readObject = ois.readObject();
             
             if (readObject instanceof String) {
+<<<<<<< HEAD
                 
                 // reads incoming messages, appends to JTextArea  (version 2 - switched from JTextArea to JTextPane)
+=======
+
+>>>>>>> b2120778ee0118baec9d1bb4f513e9ca5e63a34c
                 readObject = (String) readObject;
                 appendToPane(tPane, "\n" + readObject, c);
                 c = Color.black;
-                //jtaMain.append(readObject + "\n");   
         
             } else if (readObject instanceof Vector) {
                 
                 currentPlayers = (Vector) readObject;
-                
-                for (User player : currentPlayers) {
-                    System.out.println(player.getUsername());
-                }
-                
+       
             } else if (readObject instanceof UserWon) {
             
-                UserWon uw = (UserWon) readObject;
-                
-                JOptionPane.showMessageDialog(null, uw); 
-                
+                UserWon uw = (UserWon) readObject;         
+                JOptionPane.showMessageDialog(null, uw);         
                 System.exit(0);
             }
           }
@@ -1179,7 +1163,7 @@ public class Board extends JFrame {
         } catch (Exception e) { System.out.println(e.getMessage());
         }
       }
-    } 
+    } // end class ReadMessages
         
 
 }

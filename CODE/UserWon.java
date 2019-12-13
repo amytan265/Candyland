@@ -13,13 +13,23 @@ import java.util.*;
   */
 class UserWon implements Serializable {
     
+    // attributes
     private User currentPlayer;
     
+    /** 
+      * UserWon constructor.
+      *
+      * @param currentPlayer - User
+      */
     public UserWon(User currentPlayer) {
     
         this.currentPlayer = currentPlayer;
     }
      
+    /**
+      * UserWon toString method.
+      * @return formatted winner message
+      */
     public String toString() {
             
         return currentPlayer.getUsername() + " won!";
