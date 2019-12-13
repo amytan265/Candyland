@@ -89,22 +89,30 @@ public class Server {
                                 oos.writeObject("max");
                                 oos.flush();
                             
-                            } else {
-                            
+                                keepGoing = false;
+                                
+                            } else if (clients.size() <= 4) {
+                                
                                 oos.writeObject("continue");
-                                oos.flush(); 
-                                                 
-                                User readPlayer = (User) ois.readObject();
-                                players.add(readPlayer);
+                                oos.flush();
+                                
+                                Object readObj = ois.readObject(); 
+                                
+                                if (readObj instanceof User) {
+                                
+                                    User readPlayer = (User) readObj;
+                                    players.add(readPlayer);
+                                }                         
                             }
-
+                            
                         } else if (readObject.equals("getPlayers")) {
-                           
-                           /**
-                           oos.writeObject(players);
-                           oos.flush();
-                           */
-                           
+                            
+                            for (User player : players) {
+                                
+                                oos.writeObject(player.getUsername());
+                                oos.flush();
+                            }
+                        
                         } else {
                             
                             for (int i = 0; i < clients.size(); i++) {
@@ -112,7 +120,7 @@ public class Server {
                                 clients.get(i).oos.writeObject(readObject);
                                 clients.get(i).oos.flush();
                             }              
-                        }                       
+                        }                        
                     } 
                 }
             } catch (IOException ioe) {

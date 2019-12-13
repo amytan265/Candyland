@@ -265,6 +265,9 @@ public class Board extends JFrame {
         public CLActive() {
         
             try {
+            
+                oos.writeObject("getPlayers");
+                oos.flush();
                      
                 this.setLayout(new GridLayout(3, 0));
                 
@@ -272,30 +275,6 @@ public class Board extends JFrame {
                 this.setBorder(border);
                 this.setPreferredSize(new Dimension(350, 200));
                 
-                oos.writeObject("getPlayers");
-                oos.flush();
-                
-                /**
-                boolean keepGoing = true;
-                Object readPlayer;
-                
-                while (keepGoing) {
-                
-                    readPlayer = ois.readObject();
-                    
-                    if (readPlayer != null) {
-                    
-                        User player = (User) readPlayer;
-                        players.add(player);
-                        
-                     } else {
-                     
-                        keepGoing = false;
-                        
-                     }
-                }
-                */
-                    
                 JCheckBox jcb1 = new JCheckBox("Amy");
                 JCheckBox jcb2 = new JCheckBox("Regina");
                 JCheckBox jcb3 = new JCheckBox("Miki");
@@ -315,13 +294,12 @@ public class Board extends JFrame {
                 jcb2.setEnabled(false); 
                 jcb3.setEnabled(false); 
                 
-                // this.add(jlHeader);
                 this.add(jcb1);
                 this.add(jcb2);
                 this.add(jcb3);
                 
-           } catch (IOException ioe) { System.out.println(ioe.getMessage()); 
-           } // catch (ClassNotFoundException cnfe) { System.out.println(cnfe.getMessage());  }
+           } catch (IOException ioe) { System.out.println(ioe.getMessage()); }
+           // } catch (ClassNotFoundException cnfe) { System.out.println(cnfe.getMessage());  }
         }
     }
     
@@ -1000,7 +978,7 @@ public class Board extends JFrame {
         
      class ReadMessages extends Thread {
 
-     Object readObject;
+     Object readObject = null;
     
       // run method
       public void run() {
@@ -1013,7 +991,7 @@ public class Board extends JFrame {
                 
                 // reads incoming messages, appends to JTextArea
                 readObject = (String) readObject;
-                jtaMain.append(readObject + "\n");  
+                jtaMain.append(readObject +  "\n");  
             } 
           }
         } catch (IOException ioe) { System.out.println(ioe.getMessage()); 
@@ -1021,5 +999,5 @@ public class Board extends JFrame {
         } catch (Exception e) { System.out.println(e.getMessage());
         }
       }
-    }  
+    } 
 }
