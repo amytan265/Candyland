@@ -16,7 +16,7 @@ public class Server {
     // thread safe list of clients
     public static Vector<ClientThread> clients = new Vector<ClientThread>();
     
-    Vector<User> players = new Vector<User>();
+    Vector<User> players = new Vector<>();
     
     public static void main(String[] args) {
     
@@ -89,15 +89,32 @@ public class Server {
                                 oos.writeObject("max");
                                 oos.flush();
                             
-                            } else {
-                            
+                                keepGoing = false;
+                                
+                            } else if (clients.size() <= 4) {
+                                
                                 oos.writeObject("continue");
-                                oos.flush(); 
-                                                 
-                                User readPlayer = (User) ois.readObject();
-                                players.add(readPlayer);
+                                oos.flush();
+                                
+                                Object readObj = ois.readObject(); 
+                                
+                                if (readObj instanceof User) {
+                                
+                                    User readPlayer = (User) readObj;
+                                    players.add(readPlayer);
+                                }                         
                             }
-
+                            
+                        } else if (readObject.equals("getPlayers")) {
+                                           
+                           for (User player : players) {
+                                
+                                System.out.println(player.getUsername());   
+                           } 
+                           
+                           oos.writeObject(players);
+                           oos.flush();             
+                                           
                         } else {
                             
                             for (int i = 0; i < clients.size(); i++) {
@@ -105,7 +122,7 @@ public class Server {
                                 clients.get(i).oos.writeObject(readObject);
                                 clients.get(i).oos.flush();
                             }              
-                        }                       
+                        }                        
                     } 
                 }
             } catch(IOException ioe) {

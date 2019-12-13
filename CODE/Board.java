@@ -25,7 +25,7 @@ import javax.swing.text.StyleContext;
 public class Board extends JFrame {
 
     private User currentPlayer;
-    private Vector<User> players;
+    private Vector<User> currentPlayers = new Vector<>();
     
     private JTextArea jtaMain;
     private JTextPane tPane;
@@ -292,37 +292,16 @@ public class Board extends JFrame {
         public CLActive() {
         
             try {
-                     
+            
+                oos.writeObject("getPlayers");
+                oos.flush();
+
                 this.setLayout(new GridLayout(3, 0));
                 
                 Border border = BorderFactory.createTitledBorder("Active Users");
                 this.setBorder(border);
                 this.setPreferredSize(new Dimension(350, 200));
-                
-                //oos.writeObject("getPlayers");
-                //oos.flush();
-                
-                /**
-                boolean keepGoing = true;
-                Object readPlayer;
-                
-                while (keepGoing) {
-                
-                    readPlayer = ois.readObject();
-                    
-                    if (readPlayer != null) {
-                    
-                        User player = (User) readPlayer;
-                        players.add(player);
-                        
-                     } else {
-                     
-                        keepGoing = false;
-                        
-                     }
-                }
-                */
-                    
+
                 JCheckBox jcb1 = new JCheckBox("Amy");
                 JCheckBox jcb2 = new JCheckBox("Regina");
                 JCheckBox jcb3 = new JCheckBox("Miki");
@@ -342,14 +321,15 @@ public class Board extends JFrame {
                 jcb2.setEnabled(false); 
                 jcb3.setEnabled(false); 
                 
-                // this.add(jlHeader);
                 this.add(jcb1);
                 this.add(jcb2);
                 this.add(jcb3);
                 
            } // catch (IOException ioe) { System.out.println(ioe.getMessage()); 
-            catch (Exception e) { System.out.println(e.getMessage()); }
           // }  catch (ClassNotFoundException cnfe) { System.out.println(cnfe.getMessage());  }
+            catch (IOException ioe) { System.out.println(ioe.getMessage());}
+            catch (Exception e) { System.out.println(e.getMessage()); }
+           //}  catch (ClassNotFoundException cnfe) { System.out.println(cnfe.getMessage());  }
         }
     }
     
@@ -384,9 +364,6 @@ public class Board extends JFrame {
             String choice = ae.getActionCommand();
             
             if( choice.equals("About") ){
-//             JFrame about = new JFrame("About");
-//             about.setSize(400, 400);
-//             about.setLocationRelativeTo(null);
                try {
                   File htmlFile = new File("Assets/about.html");
                   Desktop.getDesktop().open(htmlFile); 
@@ -397,11 +374,6 @@ public class Board extends JFrame {
 						JOptionPane.showMessageDialog(null, msg, title,
 							   JOptionPane.ERROR_MESSAGE);
                }
-
-//                JTextArea textareaAbout = new JTextArea(htmlFile);
-//                textareaAbout.setEnabled(false);
-//                about.add(textareaAbout);
-//             about.setVisible(true); 
             }
             else if(choice.equals("Rules")){
                try {
@@ -449,7 +421,6 @@ public class Board extends JFrame {
                
                try {
                   String cardMessage = new String(currentPlayer.getUsername() + " drew a " + card.getCurrentColor() + " card!");
-                  //appendToPane(tPane, "\n" + cardMessage, Color.RED);
                   c = Color.red;
                   oos.writeObject(cardMessage);
                   oos.flush();
@@ -1030,7 +1001,7 @@ public class Board extends JFrame {
         
      class ReadMessages extends Thread {
 
-     Object readObject;
+     Object readObject = null;
     
       // run method
       public void run() {
@@ -1044,7 +1015,16 @@ public class Board extends JFrame {
                 // reads incoming messages, appends to JTextArea
                 readObject = (String) readObject;
                 appendToPane(tPane, "\n" + readObject, c);
-                //jtaMain.append(readObject + "\n");  
+                //jtaMain.append(readObject + "\n");   
+        
+            } else if (readObject instanceof Vector) {
+                
+                currentPlayers = (Vector) readObject;
+                
+                for (User player : currentPlayers) {
+                    System.out.println(player.getUsername());
+                }
+
             } 
           }
         } catch (IOException ioe) { System.out.println(ioe.getMessage()); 
@@ -1052,5 +1032,5 @@ public class Board extends JFrame {
         } catch (Exception e) { System.out.println(e.getMessage());
         }
       }
-    }  
+    } 
 }
