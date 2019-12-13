@@ -1110,6 +1110,7 @@ public class Board extends JFrame {
                 // reads incoming messages, appends to JTextArea
                 readObject = (String) readObject;
                 appendToPane(tPane, "\n" + readObject, c);
+                c = Color.black;
                 //jtaMain.append(readObject + "\n");   
         
             } else if (readObject instanceof Vector) {
@@ -1135,4 +1136,6 @@ public class Board extends JFrame {
         }
       }
     } 
+        
+
 }
