@@ -28,9 +28,11 @@ public class Candyland {
     
     public Candyland() {
     
+        String ipAddress = JOptionPane.showInputDialog(null, "Enter IP Address:","Enter IP Address", JOptionPane.QUESTION_MESSAGE); 
+    
         try {
         
-            s = new Socket("localhost", 16789);
+            s = new Socket(ipAddress, 16789);
             ois = new ObjectInputStream(s.getInputStream());
             oos = new ObjectOutputStream(s.getOutputStream());
             
