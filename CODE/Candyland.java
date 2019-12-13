@@ -46,7 +46,7 @@ public class Candyland {
                 
                     if (readObject.equals("max")) {
                     
-                    JOptionPane.showMessageDialog(null, "Max players for Candyland is 4. Please try again later \u2639");
+                    JOptionPane.showMessageDialog(null, "Max players for Candyland is 4. Please try again later.");
                     System.exit(0);
                 
                     } else if (readObject.equals("continue")) {

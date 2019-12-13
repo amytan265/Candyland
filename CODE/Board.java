@@ -7,7 +7,6 @@ import java.net.*;
 import javax.swing.ImageIcon;
 import javax.swing.border.*;
 
-
 import javax.swing.text.AttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -363,7 +362,6 @@ public class Board extends JFrame {
             this.add(jpCard);
         } 
     }
-    
     
     class MyAdapter implements ActionListener {     // You can only have one public class in a file so you don't write public 
 
@@ -1060,14 +1058,24 @@ public class Board extends JFrame {
                      
                      currentPlayer.setScore(score);
                      System.out.println(score);
-                     
+                                          
                      if(score >=50){
-                        System.out.println(currentPlayer.getUsername() + " won!");
-                        JOptionPane.showMessageDialog(null, currentPlayer.getUsername() + " won!"); 
+                            
+                        try {
+                        
+                            // oos.writeObject(currentPlayer.getUsername() + " won!");
+                            // oos.flush();
+                            
+                            oos.writeObject(new UserWon(currentPlayer));
+                            oos.flush();
+                            
+                        } catch (IOException ioe) { System.out.println(ioe.getMessage()); }
+                    
+                        // System.out.println(currentPlayer.getUsername() + " won!");
+                        // JOptionPane.showMessageDialog(null, currentPlayer.getUsername() + " won!"); 
                      }
-                 }
-                 else {
-                  System.out.println("It appears that you have already won the game! Thanks for playing.");
+                 } else {
+                  System.out.println("Somebody already won the game! Thanks for playing.");
                  }
               }// end try
               catch(NullPointerException npe){
@@ -1082,8 +1090,8 @@ public class Board extends JFrame {
                System.exit(0);
             }
          }
-     } // end class MyAdapter
-        
+     } // end class MyAdapter  
+       
      class ReadMessages extends Thread {
 
      Object readObject = null;
@@ -1109,7 +1117,15 @@ public class Board extends JFrame {
                 for (User player : currentPlayers) {
                     System.out.println(player.getUsername());
                 }
-            } 
+                
+            } else if (readObject instanceof UserWon) {
+            
+                UserWon uw = (UserWon) readObject;
+                
+                JOptionPane.showMessageDialog(null, uw); 
+                
+                System.exit(0);
+            }
           }
         } catch (IOException ioe) { System.out.println(ioe.getMessage()); 
         } catch (NullPointerException npe) { System.out.println(npe.getMessage());
