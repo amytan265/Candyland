@@ -238,9 +238,9 @@ public class Board extends JFrame {
             //jtaMain = new JTextArea(10, 30);
             //jtaMain.setEditable(false);
             tPane = new JTextPane();
-            //JScrollPane jspMain = new JScrollPane(tPane);
+            JScrollPane jspMain = new JScrollPane(tPane);
             tPane.setMargin(new Insets(5, 5, 5, 5));
-            jpMain.add(tPane);
+            jpMain.add(jspMain);
             tPane.setFocusable(false);
         
             JPanel jpBottom = new JPanel();
