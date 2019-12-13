@@ -1137,12 +1137,8 @@ public class Board extends JFrame {
             readObject = ois.readObject();
             
             if (readObject instanceof String) {
-<<<<<<< HEAD
                 
-                // reads incoming messages, appends to JTextArea  (version 2 - switched from JTextArea to JTextPane)
-=======
-
->>>>>>> b2120778ee0118baec9d1bb4f513e9ca5e63a34c
+               // reads incoming messages, appends to JTextArea  (version 2 - switched from JTextArea to JTextPane)
                 readObject = (String) readObject;
                 appendToPane(tPane, "\n" + readObject, c);
                 c = Color.black;
